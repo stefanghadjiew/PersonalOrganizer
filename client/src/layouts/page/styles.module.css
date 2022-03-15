@@ -1,0 +1,7 @@
+.pageLayout {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 250px);
+    height: 100vh;
+    overflow: scroll;
+}

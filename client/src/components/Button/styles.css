@@ -1,0 +1,10 @@
+.button {
+    background-color: var(--dark-blue-color);
+    border: none;
+    padding: .8rem 1.3rem;
+    border-radius: 3rem;
+    text-transform: capitalize;
+    font: inherit;
+    cursor: pointer;
+    color: var(--text-color);
+}

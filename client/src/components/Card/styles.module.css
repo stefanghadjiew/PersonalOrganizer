@@ -1,0 +1,48 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: 350px;
+    box-shadow: 6px 12px 20px 2px var(--dark-text-color);
+    background-color: var(--dark-blue-color);
+    transition: all 0.3s ease-in-out;
+    color: var(--text-color);
+    border-radius: 0.5rem;
+}
+
+.link {
+    color: var(--light-blue-color);
+    text-decoration: none;
+    padding: 0 0 1rem;
+    font-weight: bold;
+    word-break: break-word;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.imageContainer {
+    height: 150px;
+    width: 100%;
+}
+
+.imageContainer img {
+    height: 100%;
+    width: 100%;
+}
+
+.title {
+    text-align: left;
+    margin: 1rem 0;
+}
+
+.description {
+    margin-bottom: 1.5rem;
+}

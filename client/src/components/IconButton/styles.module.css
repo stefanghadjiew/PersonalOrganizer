@@ -1,0 +1,29 @@
+.iconButton {
+    border: 1px solid var(--dark-blue-color);
+    padding: .2rem;
+    border-radius: 10px;
+    outline: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.iconButtonWrapper {
+    position: relative;
+}
+
+.iconButtonWrapper:hover .tooltip {
+    opacity: 1;
+}
+
+.tooltip {
+    position: absolute;
+    white-space: nowrap;
+    left: -50%;
+    top: 45px;
+    background-color: rgba(20, 20,23,.5) ;
+    padding: .2rem .5rem;
+    color: var(--text-color);
+    border-radius: 1rem;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+}

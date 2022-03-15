@@ -1,0 +1,16 @@
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    background-color: transparent;
+    padding: 1rem 2rem;
+    align-items: center;
+    gap: .5rem;
+    position: fixed;
+    width: calc(100% - 250px);
+    z-index: 100;
+}
+
+.navbar-icon {
+    font-size: 1.25rem;
+    color: var(--dark-blue-color);
+}

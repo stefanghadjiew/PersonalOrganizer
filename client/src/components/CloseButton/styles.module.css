@@ -1,0 +1,10 @@
+.button {
+    border: 0;
+    cursor: pointer;
+    position: absolute;
+    top: .2rem;
+    right: .2rem;
+    color: var(--dark-text-color);
+    background-color: inherit;
+    border-color: var(--text-color);
+}

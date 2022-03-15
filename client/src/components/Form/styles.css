@@ -1,0 +1,36 @@
+.form-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-container-header {
+    font-size: 3rem;
+    color: var(--dark-blue-color);
+    margin-bottom: 3rem;
+}
+
+.form {
+    width: 400px;
+    display: grid;
+    gap: 2rem;
+    border: 4px solid var(--dark-blue-color);
+    padding: 2rem;
+    text-align: center;
+    border-radius: .5rem;
+    box-shadow: 6px 10px 20px 2px var(--dark-blue-color);
+}
+
+.form-header {
+    color: var(--dark-blue-color);
+    font-size: 2rem;
+    line-height: 1.2;
+}
+
+.big-icon {
+    font-size: 5rem;
+    color: var(--dark-blue-color);
+    margin: auto;
+}
