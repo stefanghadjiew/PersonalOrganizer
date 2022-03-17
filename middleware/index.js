@@ -24,6 +24,11 @@ const {
   getAllOthersResources,
   deleteOthersResource,
 } = require("./others.js");
+const {
+  createCSSResource,
+  getAllCSSResources,
+  deleteCSSResource,
+} = require("./css.js");
 
 module.exports = {
   createUser,
@@ -43,4 +48,7 @@ module.exports = {
   createOthersResource,
   getAllOthersResources,
   deleteOthersResource,
+  createCSSResource,
+  getAllCSSResources,
+  deleteCSSResource,
 };
