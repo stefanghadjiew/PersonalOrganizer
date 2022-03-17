@@ -1,10 +1,22 @@
 .button {
     background-color: var(--dark-blue-color);
     border: none;
-    padding: .8rem 1.3rem;
+    padding: 0.8rem 1.3rem;
     border-radius: 3rem;
     text-transform: capitalize;
     font: inherit;
     cursor: pointer;
     color: var(--text-color);
+    position: relative;
+}
+
+.companion::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 100%;
+    border-radius: 3rem;
+    background-color: white;
 }

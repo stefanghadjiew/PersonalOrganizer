@@ -46,6 +46,12 @@ const learningResourcesSchema = new Schema({
       ref: "FutureProjects",
     },
   ],
+  css: [
+    {
+      type: ObjectId,
+      ref: "CSS",
+    },
+  ],
   others: [
     {
       type: ObjectId,

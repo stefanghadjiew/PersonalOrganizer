@@ -1,0 +1,13 @@
+.search {
+    width: 500px;
+    position: relative;
+    padding-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.actions {
+    position: absolute;
+    right: 0.2rem;
+    top: 0.15rem;
+}

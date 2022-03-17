@@ -1,5 +1,6 @@
 .input-wrapper {
     position: relative;
+    width: 100%;
 }
 
 .floating-label {
@@ -9,8 +10,8 @@
     top: -50%;
     left: 1rem;
     text-transform: uppercase;
-    font-size: .8rem;
-    transition: font-weight 250ms ease-in-out, transform  250ms ease-in-out;
+    font-size: 0.8rem;
+    transition: font-weight 250ms ease-in-out, transform 250ms ease-in-out;
 }
 
 .input {
@@ -19,19 +20,20 @@
     color: var(--dark-blue-color);
     width: 100%;
     border-radius: 3rem;
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
     border: 1px solid var(--dark-blue-color);
 }
 
 .input:focus {
     outline: none;
-    box-shadow: 0px 0px 0px 2px var(--text-color), 0px 0px 0px 5px var(--dark-blue-color);
+    box-shadow: 0px 0px 0px 2px var(--text-color),
+        0px 0px 0px 5px var(--dark-blue-color);
 }
 
 .input:focus + .floating-label,
 .input:not(:placeholder-shown) + .floating-label {
     transform: translateY(-2rem);
-    font-weight: bold
+    font-weight: bold;
 }
 
 .input::placeholder {
@@ -46,4 +48,3 @@
     left: 10px;
     text-align: left;
 }
-

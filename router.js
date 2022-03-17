@@ -17,6 +17,9 @@ const {
   createOthersResource,
   getAllOthersResources,
   deleteOthersResource,
+  createCSSResource,
+  getAllCSSResources,
+  deleteCSSResource,
 } = require("./middleware/index.js");
 
 const router = express.Router();
@@ -27,6 +30,10 @@ router.post("/login", loginUser);
 router.post("/users/:userId/javascript/create", createJavascriptResource);
 router.get("/users/:userId/javascript/all", getAllJavascriptResources);
 router.delete("/javascript/:resourceId/delete", deleteJavascriptResource);
+
+router.post("/users/:userId/css/create", createCSSResource);
+router.get("/users/:userId/css/all", getAllCSSResources);
+router.delete("/css/:resourceId/delete", deleteCSSResource);
 
 router.post("/users/:userId/react/create", createReactJsResource);
 router.get("/users/:userId/react/all", getAllReactJsResources);

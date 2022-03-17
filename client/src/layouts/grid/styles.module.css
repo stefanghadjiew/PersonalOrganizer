@@ -1,0 +1,25 @@
+.gridContainer {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+
+.gridLayout {
+    padding-bottom: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 1.5rem;
+    grid-auto-flow: dense;
+}
+
+.gridLayout :nth-child(6n + 1),
+.gridLayout :nth-child(6n + 6) {
+    grid-area: span 1 / span 4; /* 1 and 6 take 1 rows and 2 columns */
+}
+
+.gridLayout :nth-child(6n + 2),
+.gridLayout :nth-child(6n + 3),
+.gridLayout :nth-child(6n + 4),
+.gridLayout :nth-child(6n + 5) {
+    grid-area: span 1 / span 3;
+}

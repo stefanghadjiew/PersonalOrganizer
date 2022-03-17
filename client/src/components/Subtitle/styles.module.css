@@ -1,0 +1,12 @@
+.subtitleWrapper {
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 3rem;
+    align-items: center;
+}
+
+.subtitle {
+    line-height: 1.5;
+    text-transform: capitalize;
+    color: var(--dark-blue-color);
+}

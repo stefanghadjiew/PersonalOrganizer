@@ -1,14 +1,20 @@
 export const appState = {
-    isLoading:false,
+    isLoading: false,
     theme: {
-        dark:false,
-        light:true
+        dark: false,
+        light: true,
     },
     user: null,
     messageToast: [],
-    learningResources: [],
+    javascript: [],
+    css: [],
+    reactjs: [],
+    testing: [],
+    databases: [],
+    nodejs: [],
     npmPackages: [],
-    futureProjects: [],
+    projects: [],
     books: [],
-    currentProjects: []
-}
+    futureProjects: [],
+    others: [],
+};

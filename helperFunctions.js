@@ -17,6 +17,7 @@ const createResource = async (req, collection, userLearningResources) => {
   const createdResource = await collection.create({
     ...resourcePreview,
     learningResourcesId: userLearningResources[0]._id,
+    link,
   });
   switch (collection) {
     case db.Javascript:
@@ -42,6 +43,9 @@ const createResource = async (req, collection, userLearningResources) => {
       break;
     case db.Others:
       userLearningResources[0].others.push(createdResource._id);
+      break;
+    case db.CSS:
+      userLearningResources[0].css.push(createdResource._id);
       break;
     default:
       return;
@@ -84,6 +88,10 @@ const getAllResources = async (collection, userLearningResources) => {
       break;
     case db.Projects:
       arrFromUserLearningResources = userLearningResources[0].projects;
+      break;
+    case db.CSS:
+      arrFromUserLearningResources = userLearningResources[0].css;
+      break;
     default:
       return;
   }
