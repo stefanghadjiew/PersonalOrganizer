@@ -14,6 +14,7 @@ const createReactJsResource = async (req, res, next) => {
   try {
     const createdResource = await createResource(
       req,
+      res,
       ReactJs,
       userLearningResources
     );

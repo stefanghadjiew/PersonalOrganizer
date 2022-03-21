@@ -73,6 +73,8 @@ const determineActionType = learningResourceType => {
             return actionTypes.SET_NPM_PACKAGES;
         case learningResourcesType.CSS:
             return actionTypes.SET_CSS_RESOURCES;
+        case learningResourcesType.OTHERS:
+            return actionTypes.SET_OTHERS_RESOURCES;
         default:
             return;
     }

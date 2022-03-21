@@ -35,9 +35,9 @@ router.post("/users/:userId/css/create", createCSSResource);
 router.get("/users/:userId/css/all", getAllCSSResources);
 router.delete("/css/:resourceId/delete", deleteCSSResource);
 
-router.post("/users/:userId/react/create", createReactJsResource);
-router.get("/users/:userId/react/all", getAllReactJsResources);
-router.delete("/react/:resourceId/delete", deleteReactJsResource);
+router.post("/users/:userId/reactjs/create", createReactJsResource);
+router.get("/users/:userId/reactjs/all", getAllReactJsResources);
+router.delete("/reactjs/:resourceId/delete", deleteReactJsResource);
 
 router.post("/users/:userId/nodejs/create", createNodeJsResource);
 router.get("/users/:userId/nodejs/all", getAllNodeJsResources);

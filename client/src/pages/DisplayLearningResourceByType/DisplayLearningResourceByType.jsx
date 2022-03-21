@@ -1,14 +1,15 @@
 import React from 'react';
 import { Page } from '../../containers';
-import { Card, Title, Subtitle, Search } from '../../components';
-import { learningResourcesType } from '../../context/learningResourcesType';
+import { Card, Title, Subtitle, Search, Button } from '../../components';
 import { GridLayout } from '../../layouts';
 import { useLearningResources, useSearchResults } from '../../customHooks';
+import { actionTypes } from '../../context/actionTypes';
+import { CreateResourceDialog } from '../../components';
+import { useAppContext } from '../../context/AppContext';
 
-const JavascriptResources = () => {
-    const resources = useLearningResources(
-        learningResourcesType.JAVASCRIPT
-    );
+const DisplayLearningResourceByType = ({ learningResourceType }) => {
+    const resources = useLearningResources(learningResourceType);
+    const { dispatch } = useAppContext();
 
     const [searchResults, handleSearch, clearSearchResults] =
         useSearchResults(resources);
@@ -21,15 +22,34 @@ const JavascriptResources = () => {
         <Card key={result._id} content={result} />
     ));
 
+    const addNewResource = () => {
+        dispatch({
+            type: actionTypes.SET_BACKDROP,
+            payload: {
+                open: true,
+                child: (
+                    <CreateResourceDialog
+                        learningResourceType={learningResourceType}
+                    />
+                ),
+            },
+        });
+    };
+
     return (
         <Page>
-            <Title text="javascript" />
+            <Title text={learningResourceType} />
             <Subtitle
                 text={`Number of resources: ${
                     searchResults
                         ? searchResults.length
                         : resources?.length
                 }`}
+            />
+            <Button
+                text="Add New Resource"
+                style={{ width: '200px', marginBottom: '3rem' }}
+                onClick={addNewResource}
             />
             <Search
                 handleSearch={handleSearch}
@@ -44,7 +64,7 @@ const JavascriptResources = () => {
     );
 };
 
-export default JavascriptResources;
+export default DisplayLearningResourceByType;
 
 //CREATE USER AVATAR COMPONENT
 //CREATE SIGN UP PAGE

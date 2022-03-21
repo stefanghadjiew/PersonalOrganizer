@@ -6,6 +6,11 @@ const buildGetAllResourcesUrl = (userId, learningResourceType) => {
     return url;
 };
 
+const buildCreateResourceUrl = (userId, learningResourceType) => {
+    let url = `${BASE_URL}/users/${userId}/${learningResourceType}/create`;
+    return url;
+};
+
 export const login = async userInfo => {
     try {
         const response = await axios.post(`${BASE_URL}/login`, userInfo);
@@ -21,9 +26,22 @@ export const getLearningResources = async (
     learningResourceType
 ) => {
     const url = buildGetAllResourcesUrl(learningResourceType, userId);
-    console.log(url);
     try {
         const res = await axios.get(url);
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+
+export const createLearningResource = async (
+    userId,
+    learningResourceType,
+    data
+) => {
+    const url = buildCreateResourceUrl(userId, learningResourceType);
+    try {
+        const res = await axios.post(url, data);
         return res.data;
     } catch (err) {
         throw new Error(err.response.data.message);

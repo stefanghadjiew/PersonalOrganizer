@@ -10,3 +10,5 @@ export { default as Card } from './Card/Card.jsx';
 export { default as Title } from './Title/Title.jsx';
 export { default as Search } from './Search/Search.jsx';
 export { default as Subtitle } from './Subtitle/Subtitle.jsx';
+export { default as CreateResourceDialog } from './CreateResourceDialog/CreateResourceDialog.jsx';
+export { default as Checkbox } from './Checkbox/Checkbox.jsx';

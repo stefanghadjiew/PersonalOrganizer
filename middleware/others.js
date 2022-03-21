@@ -12,6 +12,7 @@ const createOthersResource = async (req, res, next) => {
   try {
     const createdResource = await createResource(
       req,
+      res,
       Others,
       userLearningResources
     );

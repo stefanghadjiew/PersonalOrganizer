@@ -1,20 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
-import {
-    HomePage,
-    JavascriptResources,
-    NpmPackages,
-    Books,
-    FutureProjects,
-    Login,
-    ReactJsResources,
-    NodeJsResources,
-    CSSResources,
-    TestingResources,
-    DatabasesResources,
-    Projects,
-    OtherResources,
-} from './pages';
+import { HomePage, DisplayLearningResourceByType, Login } from './pages';
 import { useAppContext } from './context/AppContext';
+import { learningResourcesType } from './context/learningResourcesType';
 
 const AppRouter = () => {
     const { applicationState } = useAppContext();
@@ -23,23 +10,50 @@ const AppRouter = () => {
         return user ? component : <Login />;
     };
 
+    const resourcesRoutes = [
+        {
+            path: '/javascript',
+            learningResourceType: learningResourcesType.JAVASCRIPT,
+        },
+        {
+            path: '/npm-packages',
+            learningResourceType: learningResourcesType.NPM_PACKAGES,
+        },
+        {
+            path: '/books',
+            learningResourceType: learningResourcesType.BOOKS,
+        },
+        {
+            path: '/future-projects',
+            learningResourceType: learningResourcesType.FUTURE_PROJECTS,
+        },
+        {
+            path: '/others',
+            learningResourceType: learningResourcesType.OTHERS,
+        },
+        {
+            path: '/reactjs',
+            learningResourceType: learningResourcesType.REACTJS,
+        },
+    ];
+
+    const renderResourcesRoutes = resourcesRoutes.map(route => (
+        <Route
+            key={route.path}
+            path={route.path}
+            element={isUserLogged(
+                <DisplayLearningResourceByType
+                    learningResourceType={route.learningResourceType}
+                />
+            )}
+        />
+    ));
+
     return (
         <Routes>
             <Route path="/" element={isUserLogged(<HomePage />)} />
             <Route path="/login" element={isUserLogged(<Login />)} />
-            <Route
-                path="/javascript"
-                element={isUserLogged(<JavascriptResources />)}
-            />
-            <Route
-                path="/npm-packages"
-                element={isUserLogged(<NpmPackages />)}
-            />
-            <Route path="/books" element={isUserLogged(<Books />)} />
-            <Route
-                path="/future-projects"
-                element={isUserLogged(<FutureProjects />)}
-            />
+            {renderResourcesRoutes}
         </Routes>
     );
 };

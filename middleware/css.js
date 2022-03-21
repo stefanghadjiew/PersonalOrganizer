@@ -14,6 +14,7 @@ const createCSSResource = async (req, res, next) => {
   try {
     const createdResource = await createResource(
       req,
+      res,
       CSS,
       userLearningResources
     );

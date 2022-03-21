@@ -11,14 +11,22 @@ const checkUserPayload = (userInfo) => {
   );
 };
 
-const createResource = async (req, collection, userLearningResources) => {
+const createResource = async (req, res, collection, userLearningResources) => {
   const { link } = req.body;
-  const resourcePreview = await linkPreviewGenerator(link);
-  const createdResource = await collection.create({
-    ...resourcePreview,
-    learningResourcesId: userLearningResources[0]._id,
-    link,
-  });
+  let createdResource;
+  try {
+    const resourcePreview = await linkPreviewGenerator(link);
+    createdResource = await collection.create({
+      ...resourcePreview,
+      learningResourcesId: userLearningResources[0]._id,
+      link,
+    });
+  } catch (err) {
+    return res.status(424).json({
+      message: "Sorry , creating a link preview for the resource failed :(",
+    });
+  }
+
   switch (collection) {
     case db.Javascript:
       userLearningResources[0].javascript.push(createdResource._id);
