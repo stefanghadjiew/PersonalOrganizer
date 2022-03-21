@@ -12,6 +12,7 @@ const createNpmPackagesResource = async (req, res, next) => {
   try {
     const createdResource = await createResource(
       req,
+      res,
       NpmPackages,
       userLearningResources
     );

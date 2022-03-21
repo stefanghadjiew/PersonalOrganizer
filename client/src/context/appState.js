@@ -4,6 +4,10 @@ export const appState = {
         dark: false,
         light: true,
     },
+    backdrop: {
+        open: false,
+        child: null,
+    },
     user: null,
     messageToast: [],
     javascript: [],
@@ -17,4 +21,5 @@ export const appState = {
     books: [],
     futureProjects: [],
     others: [],
+    reRender: false,
 };

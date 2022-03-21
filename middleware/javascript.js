@@ -12,6 +12,7 @@ const createJavascriptResource = async (req, res, next) => {
   try {
     const createdResource = await createResource(
       req,
+      res,
       Javascript,
       userLearningResources
     );

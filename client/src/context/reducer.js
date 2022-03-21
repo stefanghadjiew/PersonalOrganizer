@@ -1,5 +1,4 @@
 import { actionTypes } from './actionTypes';
-/* import { appState } from "./appState"; */
 import { v4 as uuidv4 } from 'uuid';
 
 const reducer = (state, action) => {
@@ -35,6 +34,14 @@ const reducer = (state, action) => {
                     state.messageToast,
                     action.payload
                 ),
+            };
+        case actionTypes.SET_BACKDROP:
+            return {
+                ...state,
+                backdrop: {
+                    open: action.payload.open,
+                    child: action.payload.child,
+                },
             };
         case actionTypes.SET_JAVASCRIPT_RESOURCES:
             return {
@@ -85,6 +92,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 testing: action.payload,
+            };
+        case actionTypes.SET_OTHERS_RESOURCES:
+            return {
+                ...state,
+                others: action.payload,
             };
         default:
             return state;

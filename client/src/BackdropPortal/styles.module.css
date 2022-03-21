@@ -1,0 +1,9 @@
+.backdropContainer {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--portal-element-background);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

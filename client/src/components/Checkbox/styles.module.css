@@ -1,0 +1,47 @@
+.checkboxWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.checkbox {
+    display: none;
+}
+
+.checkboxLabel {
+    position: relative;
+    display: flex;
+    padding: 0.15rem;
+    border-radius: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    color: var(--dark-blue-color);
+    cursor: pointer;
+    background-color: #fff;
+    text-shadow: 0 0 0.15rem var(--dark-blue-color);
+    font-size: 1rem;
+    left: 5px;
+}
+
+.checkboxLabel svg {
+    font-size: 1rem;
+}
+
+.checkboxLabel::before {
+    content: '';
+    position: absolute;
+    background-image: linear-gradient(
+        to top right,
+        var(--light-blue-color),
+        var(--dark-blue-color)
+    );
+    box-shadow: 0 0 0.5rem var(--dark-blue-color);
+    border-radius: 0.5rem;
+    inset: 0;
+    transition: inset 500ms ease-in-out;
+    z-index: -1;
+}
+
+.checkbox:checked + .checkboxLabel::before {
+    inset: -5px;
+}

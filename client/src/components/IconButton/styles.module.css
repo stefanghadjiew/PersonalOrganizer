@@ -1,14 +1,18 @@
+.iconButtonWrapper {
+    position: relative;
+}
+
 .iconButton {
-    border: 1px solid var(--dark-blue-color);
-    padding: .2rem;
+    border: 0;
+    padding: 0.2rem;
     border-radius: 10px;
     outline: 0;
     background-color: transparent;
     cursor: pointer;
 }
 
-.iconButtonWrapper {
-    position: relative;
+.iconButton svg {
+    font-size: 1.5rem;
 }
 
 .iconButtonWrapper:hover .tooltip {
@@ -20,10 +24,10 @@
     white-space: nowrap;
     left: -50%;
     top: 45px;
-    background-color: rgba(20, 20,23,.5) ;
-    padding: .2rem .5rem;
+    background-color: rgba(20, 20, 23, 0.5);
+    padding: 0.2rem 0.5rem;
     color: var(--text-color);
     border-radius: 1rem;
     opacity: 0;
-    transition: opacity .3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
 }

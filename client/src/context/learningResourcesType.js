@@ -4,9 +4,12 @@ export const learningResourcesType = {
     NODEJS: 'nodejs',
     CSS: 'css',
     PROJECTS: 'projects',
-    FUTURE_PROJECTS: 'future-projects',
-    NPM_PACKAGES: 'npm-packages',
+    FUTURE_PROJECTS: 'futureProjects',
+    NPM_PACKAGES: 'npmPackages',
     OTHERS: 'others',
+    BOOKS: 'books',
+    TESTING: 'testing',
+    DATABASES: 'databases',
 };
 
 //strings are same as endpoints
