@@ -35,7 +35,7 @@ export const useCheckbox = initialValue => {
 
 export const useLearningResources = learningResourceType => {
     const { dispatch, applicationState } = useAppContext();
-    const { user } = applicationState;
+    const { user, createLearningResource } = applicationState;
     const { id } = user;
     const resources = applicationState[learningResourceType];
 
@@ -46,9 +46,12 @@ export const useLearningResources = learningResourceType => {
     useEffect(() => {
         if (resources.length === 0) {
             getData();
-            console.log('resources length was 0');
         }
     }, [learningResourceType]);
+
+    useEffect(() => {
+        getData();
+    }, [createLearningResource]);
 
     return resources;
 };
@@ -85,6 +88,7 @@ export const usePortal = () => {
         div.id = portalId;
         div.style = `position: fixed; z-index: 1000;`;
         document.getElementsByTagName('body')[0].prepend(div);
+        /* document.getElementById('root').prepend(div); */
         setLoaded(true);
         return () => {
             document.getElementsByTagName('body')[0].removeChild(div);

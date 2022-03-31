@@ -1,5 +1,6 @@
 .card {
     display: flex;
+    min-height: 100%;
     flex-direction: column;
     padding: 1rem;
     box-shadow: 6px 12px 20px 2px var(--dark-text-color);
@@ -7,6 +8,7 @@
     transition: all 0.3s ease-in-out;
     color: var(--text-color);
     border-radius: 0.5rem;
+    justify-content: space-evenly;
 }
 
 .link {
@@ -44,4 +46,9 @@
 
 .description {
     margin-bottom: 1.5rem;
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
 }

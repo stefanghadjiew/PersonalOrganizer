@@ -1,11 +1,19 @@
 import React from 'react';
 import { Page } from '../../containers';
-import { Card, Title, Subtitle, Search, Button } from '../../components';
+import {
+    Card,
+    Title,
+    Subtitle,
+    Search,
+    Button,
+    FramerMotionAnimations,
+} from '../../components';
 import { GridLayout } from '../../layouts';
 import { useLearningResources, useSearchResults } from '../../customHooks';
-import { actionTypes } from '../../context/actionTypes';
 import { CreateResourceDialog } from '../../components';
 import { useAppContext } from '../../context/AppContext';
+import { AnimatePresence } from 'framer-motion';
+import { openBackdropWithChild } from '../../context/actions';
 
 const DisplayLearningResourceByType = ({ learningResourceType }) => {
     const resources = useLearningResources(learningResourceType);
@@ -15,26 +23,17 @@ const DisplayLearningResourceByType = ({ learningResourceType }) => {
         useSearchResults(resources);
 
     const renderLearningResources = resources?.map(learningResource => (
-        <Card key={learningResource._id} content={learningResource} />
+        <FramerMotionAnimations
+            key={learningResource._id}
+            animationType="left-to-right"
+        >
+            <Card content={learningResource} key={learningResource._id} />
+        </FramerMotionAnimations>
     ));
 
     const renderSearchResults = searchResults?.map(result => (
         <Card key={result._id} content={result} />
     ));
-
-    const addNewResource = () => {
-        dispatch({
-            type: actionTypes.SET_BACKDROP,
-            payload: {
-                open: true,
-                child: (
-                    <CreateResourceDialog
-                        learningResourceType={learningResourceType}
-                    />
-                ),
-            },
-        });
-    };
 
     return (
         <Page>
@@ -46,19 +45,32 @@ const DisplayLearningResourceByType = ({ learningResourceType }) => {
                         : resources?.length
                 }`}
             />
+
             <Button
                 text="Add New Resource"
                 style={{ width: '200px', marginBottom: '3rem' }}
-                onClick={addNewResource}
+                onClick={() => {
+                    openBackdropWithChild(
+                        <CreateResourceDialog
+                            learningResourceType={learningResourceType}
+                            componentId="createResourceDialog-id"
+                        />,
+
+                        dispatch
+                    );
+                }}
             />
+
             <Search
                 handleSearch={handleSearch}
                 clearSearch={clearSearchResults}
             />
             <GridLayout>
-                {searchResults
-                    ? renderSearchResults
-                    : renderLearningResources}
+                <AnimatePresence exitBeforeEnter>
+                    {searchResults
+                        ? renderSearchResults
+                        : renderLearningResources}
+                </AnimatePresence>
             </GridLayout>
         </Page>
     );

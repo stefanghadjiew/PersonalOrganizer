@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from './styles.module.css';
 
-const IconButton = ({ icon, tooltip, style, onClick }) => {
+const IconButton = ({ icon, tooltip, style, onClick, wrapperStyle }) => {
     return (
-        <div className={classes.iconButtonWrapper}>
+        <div style={wrapperStyle} className={classes.iconButtonWrapper}>
             <button
                 onClick={onClick}
                 style={style}

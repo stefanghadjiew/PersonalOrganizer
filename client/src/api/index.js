@@ -11,6 +11,11 @@ const buildCreateResourceUrl = (userId, learningResourceType) => {
     return url;
 };
 
+const buildDeleteResourceUrl = (learningResourceType, resourceId) => {
+    let url = `${BASE_URL}/${learningResourceType}/${resourceId}/delete`;
+    return url;
+};
+
 export const login = async userInfo => {
     try {
         const response = await axios.post(`${BASE_URL}/login`, userInfo);
@@ -42,6 +47,19 @@ export const createLearningResource = async (
     const url = buildCreateResourceUrl(userId, learningResourceType);
     try {
         const res = await axios.post(url, data);
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+
+export const deleteLearningResource = async (
+    learningResourceType,
+    resourceId
+) => {
+    const url = buildDeleteResourceUrl(learningResourceType, resourceId);
+    try {
+        const res = await axios.delete(url);
         return res.data;
     } catch (err) {
         throw new Error(err.response.data.message);

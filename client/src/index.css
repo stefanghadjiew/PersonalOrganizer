@@ -22,6 +22,15 @@ body {
     --message-toast-success: #4caf50;
     --message-toast-info: #03a9f4;
     --portal-element-background: rgba(0, 0, 0, 0.5);
+    --javascript-color: #f0db4f;
+    --npm-color: #cc3534;
+    --future-projects-color: #68a063;
+    --books-color: #d32f2f;
+    --nodejs-color: #3c873a;
+    --reactjs-color: #61dbfb;
+    --css-color: #264de4;
+    --mongodb-color: #3fa037;
+    --dark-theme-bgcolor: #212121;
 }
 
 *,
@@ -42,4 +51,5 @@ code {
     padding: 0.75rem;
     font-size: 1.25rem;
     color: var(--text-color);
+    position: relative;
 }

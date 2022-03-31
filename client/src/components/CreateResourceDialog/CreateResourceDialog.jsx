@@ -11,6 +11,9 @@ import { useAppContext } from '../../context/AppContext.js';
 import { actionTypes } from '../../context/actionTypes.js';
 import { createLearningResource } from '../../api/index.js';
 import './styles.css';
+import FramerMotionAnimations from '../FramerMotionAnimations/FramerMotionAnimations.jsx';
+
+import { closeBackdropAndRemoveChild } from '../../context/actions.js';
 
 const CreateResourceDialog = ({ learningResourceType }) => {
     const { dispatch, applicationState } = useAppContext();
@@ -51,56 +54,77 @@ const CreateResourceDialog = ({ learningResourceType }) => {
         </CSSTransition>
     ));
 
-    const createNewResource = e => {
+    const createNewResource = async e => {
         e.preventDefault();
-        createLearningResource(id, learningResourceType, {
-            link: link.value,
-        });
-    };
-
-    const handleClose = () => {
-        dispatch({
-            type: actionTypes.SET_BACKDROP,
-            payload: { open: false, child: null },
-        });
+        try {
+            await createLearningResource(id, learningResourceType, {
+                link: link.value,
+            });
+            dispatch({ type: actionTypes.SET_CREATE_LEARNING_RESOURCE });
+        } catch (err) {
+            dispatch({
+                type: actionTypes.SET_MESSAGE_TOAST,
+                payload: {
+                    type: 'error',
+                    description: err.message,
+                },
+            });
+        }
     };
 
     return (
-        <Form
-            title="Create new resource"
-            style={{ backgroundColor: '#808080', position: 'relative' }}
+        <FramerMotionAnimations
+            animationType="top-to-bottom"
+            key="create-resource-dialog"
         >
-            <Input
-                type="text"
-                value={link.value}
-                label="link"
-                error={link.error}
-                onChange={link.onChange}
-            />
-            <Checkbox
-                label="inputs"
-                checked={checkbox.checked}
-                onChange={checkbox.onChange}
-            />
-            <TransitionGroup
-                className={
-                    checkbox.checked
-                        ? 'transition-group-active'
-                        : 'transition-group'
-                }
+            <Form
+                title="Create new resource"
+                style={{
+                    backgroundColor: '#A7C7E7',
+                    position: 'relative',
+                    boxShadow: 'none',
+                    padding: '1rem 3rem',
+                    minWidth: '450px',
+                }}
             >
-                {checkbox.checked && renderInputs}
-            </TransitionGroup>
-
-            <Button text="Create Resource" onClick={createNewResource} />
-            <div className="icon-button-wrapper">
-                <IconButton
-                    icon={<IoIosClose className="icon" />}
-                    tooltip="Close dialog"
-                    onClick={handleClose}
+                <Input
+                    type="text"
+                    value={link.value}
+                    label="link"
+                    error={link.error}
+                    onChange={link.onChange}
                 />
-            </div>
-        </Form>
+                <Checkbox
+                    label="inputs"
+                    checked={checkbox.checked}
+                    onChange={checkbox.onChange}
+                />
+                <TransitionGroup
+                    className={
+                        checkbox.checked
+                            ? 'transition-group-active'
+                            : 'transition-group'
+                    }
+                >
+                    {checkbox.checked && renderInputs}
+                </TransitionGroup>
+                <Button
+                    text="Create Resource"
+                    onClick={createNewResource}
+                    disabled={link.value === ''}
+                />
+                <div className="icon-button-wrapper">
+                    <IconButton
+                        icon={<IoIosClose className="icon" />}
+                        tooltip="Close dialog"
+                        onClick={e => {
+                            e.preventDefault();
+                            closeBackdropAndRemoveChild(dispatch);
+                        }}
+                    />
+                </div>
+            </Form>
+        </FramerMotionAnimations>
     );
 };
 

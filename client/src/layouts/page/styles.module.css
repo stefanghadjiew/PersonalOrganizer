@@ -6,3 +6,7 @@
     height: 100vh;
     overflow-y: scroll;
 }
+
+.darkTheme {
+    background-color: var(--dark-theme-bgcolor);
+}

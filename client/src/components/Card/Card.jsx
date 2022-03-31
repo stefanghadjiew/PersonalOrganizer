@@ -22,7 +22,14 @@ const Card = ({ content }) => {
                 </div>
             </div>
             <div className={classes.actions}>
-                <Button style={{ color: 'black' }} text="Test Button" />
+                <Button
+                    style={{ backgroundColor: '#4caf50' }}
+                    text="View Resource"
+                />
+                <Button
+                    style={{ backgroundColor: '#d32f2f' }}
+                    text="Delete Resource"
+                />
             </div>
         </div>
     );

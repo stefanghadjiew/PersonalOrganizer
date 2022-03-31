@@ -17,8 +17,8 @@ function App() {
                         <MessageToast />
                         <AppRouter />
                     </PageLayout>
+                    <BackdropPortal />
                 </Router>
-                <BackdropPortal />
             </AppContextProvider>
         </AppLayout>
     );

@@ -6,8 +6,13 @@ export const appState = {
     },
     backdrop: {
         open: false,
-        child: null,
+        child: {
+            component: null,
+            isOpen: false,
+            componentId: null,
+        },
     },
+
     user: null,
     messageToast: [],
     javascript: [],
@@ -21,5 +26,5 @@ export const appState = {
     books: [],
     futureProjects: [],
     others: [],
-    reRender: false,
+    createLearningResource: false, // just change value from true to false to force a re-render and use it in the useLearningResources hook to fetch latest data
 };

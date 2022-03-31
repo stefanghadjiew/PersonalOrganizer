@@ -8,6 +8,23 @@
     cursor: pointer;
     color: var(--text-color);
     position: relative;
+    box-shadow: 2px 3px 3px var(--portal-element-background);
+    transition: all 0.3s ease-in-out;
+    opacity: 0.9;
+}
+
+.button:hover {
+    transform: scale(1.02);
+    opacity: 1;
+}
+
+.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.companion {
+    box-shadow: none;
 }
 
 .companion::after {

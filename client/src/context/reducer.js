@@ -14,10 +14,33 @@ const reducer = (state, action) => {
                 ...state,
                 user: action.payload,
             };
+        case actionTypes.SET_DARK_THEME: {
+            return {
+                ...state,
+                theme: {
+                    dark: true,
+                    light: false,
+                },
+            };
+        }
+        case actionTypes.SET_LIGHT_THEME: {
+            return {
+                ...state,
+                theme: {
+                    dark: false,
+                    light: true,
+                },
+            };
+        }
         case actionTypes.SET_LOGOUT_USER:
             return {
                 ...state,
                 user: null,
+            };
+        case actionTypes.SET_CREATE_LEARNING_RESOURCE:
+            return {
+                ...state,
+                createLearningResource: !state.createLearningResource,
             };
         case actionTypes.SET_MESSAGE_TOAST:
             return {
@@ -40,9 +63,14 @@ const reducer = (state, action) => {
                 ...state,
                 backdrop: {
                     open: action.payload.open,
-                    child: action.payload.child,
+                    child: {
+                        component: action.payload.component,
+                        isOpen: action.payload.isOpen,
+                        componentId: action.payload.componentId,
+                    },
                 },
             };
+
         case actionTypes.SET_JAVASCRIPT_RESOURCES:
             return {
                 ...state,

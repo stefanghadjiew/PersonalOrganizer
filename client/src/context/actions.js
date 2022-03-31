@@ -61,6 +61,38 @@ export const setLearningResources = async (
     dispatch({ type: actionTypes.SET_LOADING, payload: false });
 };
 
+export const setLightTheme = dispatch => {
+    dispatch({ type: actionTypes.SET_LIGHT_THEME });
+};
+
+export const setDarkTheme = dispatch => {
+    dispatch({ type: actionTypes.SET_DARK_THEME });
+};
+
+export const openBackdropWithChild = (component, dispatch) => {
+    dispatch({
+        type: actionTypes.SET_BACKDROP,
+        payload: {
+            open: true,
+            component,
+            isOpen: true,
+            componentId: component.props.componentId,
+        },
+    });
+};
+
+export const closeBackdropAndRemoveChild = dispatch => {
+    dispatch({
+        type: actionTypes.SET_BACKDROP,
+        payload: {
+            open: false,
+            component: null,
+            isOpen: false,
+            componentId: null,
+        },
+    });
+};
+
 const determineActionType = learningResourceType => {
     switch (learningResourceType) {
         case learningResourcesType.JAVASCRIPT:

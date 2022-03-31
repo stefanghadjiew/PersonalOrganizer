@@ -51,4 +51,6 @@ router.post("/users/:userId/others/create", createOthersResource);
 router.get("/users/:userId/others/all", getAllOthersResources);
 router.delete("/others/:resourceId/delete", deleteOthersResource);
 
+console.log(router.stack[1].route);
+
 module.exports = router;

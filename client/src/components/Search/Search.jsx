@@ -39,6 +39,7 @@ const Search = ({ handleSearch, clearSearch }) => {
                     onClick={() => {
                         handleSearch(searchInput.value);
                     }}
+                    disabled={searchInput.value === ''}
                 />
             </div>
         </div>

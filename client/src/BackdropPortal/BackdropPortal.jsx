@@ -2,6 +2,8 @@ import { usePortal } from '../customHooks';
 import { useAppContext } from '../context/AppContext';
 import classes from './styles.module.css';
 import ReactDOM from 'react-dom';
+import { AnimatePresence } from 'framer-motion';
+import { FramerMotionAnimations } from '../components';
 
 const BackdropPortal = () => {
     const { applicationState } = useAppContext();
@@ -10,12 +12,22 @@ const BackdropPortal = () => {
     const { loaded, portalId } = usePortal();
 
     return loaded
-        ? open
-            ? ReactDOM.createPortal(
-                  <div className={classes.backdropContainer}>{child}</div>,
-                  document.getElementById(portalId)
-              )
-            : null
+        ? ReactDOM.createPortal(
+              <AnimatePresence exitBeforeEnter>
+                  {open && (
+                      <FramerMotionAnimations animationType="backdrop-portal">
+                          <div
+                              className={classes.backdropContainer}
+                              key="some-key"
+                          >
+                              {child.component}
+                          </div>
+                      </FramerMotionAnimations>
+                  )}
+              </AnimatePresence>,
+
+              document.getElementById(portalId)
+          )
         : null;
 };
 

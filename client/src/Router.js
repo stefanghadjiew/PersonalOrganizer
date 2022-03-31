@@ -1,39 +1,93 @@
-import { Routes, Route } from 'react-router-dom';
-import { HomePage, DisplayLearningResourceByType, Login } from './pages';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { DisplayLearningResourceByType, Login } from './pages';
 import { useAppContext } from './context/AppContext';
-import { learningResourcesType } from './context/learningResourcesType';
+import { getLearningResourceType } from './utils';
+import { useEffect } from 'react';
 
 const AppRouter = () => {
+    const navigate = useNavigate();
     const { applicationState } = useAppContext();
     const { user } = applicationState;
     const isUserLogged = component => {
         return user ? component : <Login />;
     };
 
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+    }, []);
+
     const resourcesRoutes = [
         {
+            path: '/login',
+            component: <Login />,
+        },
+        {
             path: '/javascript',
-            learningResourceType: learningResourcesType.JAVASCRIPT,
+            component: (
+                <DisplayLearningResourceByType
+                    learningResourceType={getLearningResourceType(
+                        'javascript'
+                    )}
+                />
+            ),
         },
         {
             path: '/npm-packages',
-            learningResourceType: learningResourcesType.NPM_PACKAGES,
+            component: (
+                <DisplayLearningResourceByType
+                    learningResourceType={getLearningResourceType(
+                        'npm-packages'
+                    )}
+                />
+            ),
         },
         {
             path: '/books',
-            learningResourceType: learningResourcesType.BOOKS,
+            component: (
+                <DisplayLearningResourceByType
+                    learningResourceType={getLearningResourceType('books')}
+                />
+            ),
         },
         {
             path: '/future-projects',
-            learningResourceType: learningResourcesType.FUTURE_PROJECTS,
+            component: (
+                <DisplayLearningResourceByType
+                    learningResourceType={getLearningResourceType(
+                        'future-projects'
+                    )}
+                />
+            ),
         },
         {
             path: '/others',
-            learningResourceType: learningResourcesType.OTHERS,
+            component: (
+                <DisplayLearningResourceByType
+                    learningResourceType={getLearningResourceType(
+                        'others'
+                    )}
+                />
+            ),
         },
         {
             path: '/reactjs',
-            learningResourceType: learningResourcesType.REACTJS,
+            component: (
+                <DisplayLearningResourceByType
+                    learningResourceType={getLearningResourceType(
+                        'reactjs'
+                    )}
+                />
+            ),
+        },
+        {
+            path: '/css',
+            component: (
+                <DisplayLearningResourceByType
+                    learningResourceType={getLearningResourceType('css')}
+                />
+            ),
         },
     ];
 
@@ -41,21 +95,11 @@ const AppRouter = () => {
         <Route
             key={route.path}
             path={route.path}
-            element={isUserLogged(
-                <DisplayLearningResourceByType
-                    learningResourceType={route.learningResourceType}
-                />
-            )}
+            element={isUserLogged(route.component)}
         />
     ));
 
-    return (
-        <Routes>
-            <Route path="/" element={isUserLogged(<HomePage />)} />
-            <Route path="/login" element={isUserLogged(<Login />)} />
-            {renderResourcesRoutes}
-        </Routes>
-    );
+    return <Routes>{renderResourcesRoutes}</Routes>;
 };
 
 export default AppRouter;

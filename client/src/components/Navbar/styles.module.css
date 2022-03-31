@@ -14,3 +14,11 @@
     font-size: 1.25rem;
     color: var(--dark-blue-color);
 }
+
+.navbar-icon-dark-theme {
+    color: var(--text-color);
+}
+
+.darkTheme {
+    background-color: var(--dark-theme-bgcolor);
+}
