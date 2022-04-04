@@ -15,11 +15,13 @@ import { useNavigate } from 'react-router-dom';
 import { HiMenuAlt4 } from 'react-icons/hi';
 import SideBar from '../SideBar/SideBar';
 import { openBackdropWithChild } from '../../context/actions';
+import { useMediaQueries } from '../../responsive/useMediaQueries';
 
 const Navbar = () => {
     const { applicationState, dispatch } = useAppContext();
     const { user, theme } = applicationState;
     const navigate = useNavigate();
+    const { isMobile } = useMediaQueries();
 
     return (
         <div
@@ -30,24 +32,27 @@ const Navbar = () => {
             }
         >
             {!user && <Button text="Sign Up" />}
-            <IconButton
-                tooltip={'menu'}
-                icon={
-                    <HiMenuAlt4
-                        className={
-                            theme.light
-                                ? classes['navbar-icon']
-                                : `${classes['navbar-icon']} ${classes['navbar-icon-dark-theme']}`
-                        }
-                    />
-                }
-                onClick={() => {
-                    openBackdropWithChild(
-                        <SideBar id="sidebar-id" />,
-                        dispatch
-                    );
-                }}
-            />
+            {isMobile && (
+                <IconButton
+                    tooltip={'menu'}
+                    icon={
+                        <HiMenuAlt4
+                            className={
+                                theme.light
+                                    ? classes['navbar-icon']
+                                    : `${classes['navbar-icon']} ${classes['navbar-icon-dark-theme']}`
+                            }
+                        />
+                    }
+                    onClick={() => {
+                        openBackdropWithChild(
+                            <SideBar id="sidebar-id" />,
+                            dispatch
+                        );
+                    }}
+                />
+            )}
+
             <IconButton
                 onClick={() => {
                     setLightTheme(dispatch);

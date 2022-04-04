@@ -13,3 +13,4 @@ export { default as Subtitle } from './Subtitle/Subtitle.jsx';
 export { default as CreateResourceDialog } from './CreateResourceDialog/CreateResourceDialog.jsx';
 export { default as Checkbox } from './Checkbox/Checkbox.jsx';
 export { default as FramerMotionAnimations } from './FramerMotionAnimations/FramerMotionAnimations.jsx';
+export { default as Pagination } from './Pagination/Pagination.jsx';
