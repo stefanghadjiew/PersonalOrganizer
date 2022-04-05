@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Page } from '../../containers';
 import {
     Card,
@@ -14,7 +14,11 @@ import {
     useSearchResults,
     usePagination,
 } from '../../customHooks';
-import { CreateResourceDialog, Pagination } from '../../components';
+import {
+    CreateResourceDialog,
+    Pagination,
+    Select,
+} from '../../components';
 import { useAppContext } from '../../context/AppContext';
 import { AnimatePresence } from 'framer-motion';
 import { openBackdropWithChild } from '../../context/actions';
@@ -72,6 +76,7 @@ const DisplayLearningResourceByType = ({ learningResourceType }) => {
                         : paginatedResources?.length
                 }`}
             />
+            <Select learningResourceType={learningResourceType} />
 
             <Button
                 text="Add New Resource"

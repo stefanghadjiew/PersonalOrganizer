@@ -81,6 +81,13 @@ export const openBackdropWithChild = (component, dispatch) => {
     });
 };
 
+export const setResultsPerPage = (dispatch, resultsPerPage) => {
+    dispatch({
+        type: actionTypes.SET_RESULTS_PER_PAGE,
+        payload: resultsPerPage,
+    });
+};
+
 export const closeBackdropAndRemoveChild = dispatch => {
     dispatch({
         type: actionTypes.SET_BACKDROP,
