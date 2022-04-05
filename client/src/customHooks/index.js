@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { validateInput } from '../utils';
 import { useAppContext } from '../context/AppContext';
 import { setLearningResources } from '../context/actions';
+
 import { v4 as uuidv4 } from 'uuid';
 
 export const useInput = initialValue => {
@@ -35,7 +36,7 @@ export const useCheckbox = initialValue => {
 
 export const useLearningResources = learningResourceType => {
     const { dispatch, applicationState } = useAppContext();
-    const { user, createLearningResource } = applicationState;
+    const { user, triggerRerender } = applicationState;
     const { id } = user;
     const resources = applicationState[learningResourceType];
 
@@ -51,7 +52,7 @@ export const useLearningResources = learningResourceType => {
 
     useEffect(() => {
         getData();
-    }, [createLearningResource]);
+    }, [triggerRerender]);
 
     return resources;
 };
@@ -96,4 +97,53 @@ export const usePortal = () => {
     }, []);
 
     return { loaded, portalId };
+};
+
+export const usePagination = resources => {
+    const resultsPerPage = 12;
+    const [pages, setPages] = useState();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [paginatedResources, setPaginatedResources] = useState([]);
+
+    useEffect(() => {
+        setPages(Math.ceil(resources.length / resultsPerPage));
+    }, [resources]); // calculate number of pages
+
+    useEffect(() => {
+        getPaginatedData();
+    }, [currentPage, resources]);
+
+    const goToNextPage = () => {
+        setCurrentPage(currentPage => currentPage + 1);
+    };
+
+    const goToPreviousPage = () => {
+        setCurrentPage(currentPage => currentPage - 1);
+    };
+
+    const changePage = e => {
+        const pageNumber = +e.currentTarget.innerText;
+        setCurrentPage(pageNumber);
+    };
+
+    const getPaginationGroup = () => {
+        let start = Math.floor((currentPage - 1) / pages) * pages;
+        return new Array(pages).fill().map((_, idx) => start + idx + 1);
+    };
+
+    const getPaginatedData = () => {
+        const startIndex = currentPage * resultsPerPage - resultsPerPage;
+        const endIndex = startIndex + resultsPerPage;
+        setPaginatedResources(resources.slice(startIndex, endIndex));
+    };
+
+    return {
+        currentPage,
+        pages,
+        paginatedResources,
+        goToNextPage,
+        goToPreviousPage,
+        changePage,
+        getPaginationGroup,
+    };
 };

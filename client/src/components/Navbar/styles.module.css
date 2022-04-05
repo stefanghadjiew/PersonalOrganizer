@@ -22,3 +22,9 @@
 .darkTheme {
     background-color: var(--dark-theme-bgcolor);
 }
+
+@media only screen and (max-width: 768px) {
+    .navbar {
+        width: 100%;
+    }
+}

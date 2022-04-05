@@ -1,0 +1,35 @@
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 2.5rem;
+    width: 500px;
+}
+
+.iconColorLight {
+    color: var(--dark-blue-color);
+}
+
+.iconColorDark {
+    color: var(--text-color);
+}
+
+.paginationButton {
+    padding: 0.1rem 0.6rem;
+    border: 2px solid;
+    border-radius: 50%;
+    cursor: pointer;
+    border-color: var(--dark-blue-color);
+    background-color: transparent;
+    color: var(--dark-blue-color);
+    transition: all 0.3s ease-in-out;
+}
+
+.paginationButton:hover {
+    color: var(--text-color);
+    background-color: var(--dark-blue-color);
+}
+
+.currentPageButton {
+    color: var(--text-color);
+    background-color: var(--dark-blue-color);
+}

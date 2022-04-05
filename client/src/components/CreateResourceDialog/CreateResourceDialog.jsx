@@ -60,7 +60,7 @@ const CreateResourceDialog = ({ learningResourceType }) => {
             await createLearningResource(id, learningResourceType, {
                 link: link.value,
             });
-            dispatch({ type: actionTypes.SET_CREATE_LEARNING_RESOURCE });
+            dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
         } catch (err) {
             dispatch({
                 type: actionTypes.SET_MESSAGE_TOAST,

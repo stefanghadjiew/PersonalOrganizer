@@ -1,13 +1,24 @@
 import React from 'react';
 import classes from './styles.module.css';
 
-const IconButton = ({ icon, tooltip, style, onClick, wrapperStyle }) => {
+const IconButton = ({
+    icon,
+    tooltip,
+    style,
+    onClick,
+    wrapperStyle,
+    disabled = false,
+}) => {
     return (
         <div style={wrapperStyle} className={classes.iconButtonWrapper}>
             <button
                 onClick={onClick}
                 style={style}
-                className={classes.iconButton}
+                className={
+                    disabled
+                        ? `${classes.iconButton} ${classes.disabled}`
+                        : classes.iconButton
+                }
             >
                 {icon}
             </button>

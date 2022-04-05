@@ -37,10 +37,10 @@ const reducer = (state, action) => {
                 ...state,
                 user: null,
             };
-        case actionTypes.SET_CREATE_LEARNING_RESOURCE:
+        case actionTypes.SET_TRIGGER_RERENDER:
             return {
                 ...state,
-                createLearningResource: !state.createLearningResource,
+                triggerRerender: !state.triggerRerender,
             };
         case actionTypes.SET_MESSAGE_TOAST:
             return {

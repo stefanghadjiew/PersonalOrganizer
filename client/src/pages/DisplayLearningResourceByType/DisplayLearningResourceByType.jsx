@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Page } from '../../containers';
 import {
     Card,
@@ -9,27 +9,47 @@ import {
     FramerMotionAnimations,
 } from '../../components';
 import { GridLayout } from '../../layouts';
-import { useLearningResources, useSearchResults } from '../../customHooks';
-import { CreateResourceDialog } from '../../components';
+import {
+    useLearningResources,
+    useSearchResults,
+    usePagination,
+} from '../../customHooks';
+import { CreateResourceDialog, Pagination } from '../../components';
 import { useAppContext } from '../../context/AppContext';
 import { AnimatePresence } from 'framer-motion';
 import { openBackdropWithChild } from '../../context/actions';
 
 const DisplayLearningResourceByType = ({ learningResourceType }) => {
     const resources = useLearningResources(learningResourceType);
+
+    const {
+        paginatedResources,
+        goToNextPage,
+        goToPreviousPage,
+        changePage,
+        getPaginationGroup,
+        currentPage,
+        pages,
+    } = usePagination(resources);
+
     const { dispatch } = useAppContext();
 
     const [searchResults, handleSearch, clearSearchResults] =
-        useSearchResults(resources);
+        useSearchResults(paginatedResources);
 
-    const renderLearningResources = resources?.map(learningResource => (
-        <FramerMotionAnimations
-            key={learningResource._id}
-            animationType="left-to-right"
-        >
-            <Card content={learningResource} key={learningResource._id} />
-        </FramerMotionAnimations>
-    ));
+    const renderLearningResources = paginatedResources?.map(
+        learningResource => (
+            <FramerMotionAnimations
+                key={learningResource._id}
+                animationType="left-to-right"
+            >
+                <Card
+                    content={learningResource}
+                    key={learningResource._id}
+                />
+            </FramerMotionAnimations>
+        )
+    );
 
     const renderSearchResults = searchResults?.map(result => (
         <Card key={result._id} content={result} />
@@ -43,6 +63,13 @@ const DisplayLearningResourceByType = ({ learningResourceType }) => {
                     searchResults
                         ? searchResults.length
                         : resources?.length
+                }`}
+            />
+            <Subtitle
+                text={`Displayed: ${
+                    searchResults
+                        ? searchResults.length
+                        : paginatedResources?.length
                 }`}
             />
 
@@ -72,6 +99,14 @@ const DisplayLearningResourceByType = ({ learningResourceType }) => {
                         : renderLearningResources}
                 </AnimatePresence>
             </GridLayout>
+            <Pagination
+                goToNextPage={goToNextPage}
+                goToPreviousPage={goToPreviousPage}
+                changePage={changePage}
+                getPaginationGroup={getPaginationGroup}
+                currentPage={currentPage}
+                pages={pages}
+            />
         </Page>
     );
 };

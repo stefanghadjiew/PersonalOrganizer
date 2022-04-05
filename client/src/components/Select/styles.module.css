@@ -1,0 +1,65 @@
+.wrapper {
+    display: flex;
+    padding-bottom: 3rem;
+}
+
+.select {
+    position: relative;
+}
+
+.label {
+    line-height: 1.5;
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--dark-blue-color);
+    display: flex;
+}
+
+.perPageValue {
+    margin-left: 0.5rem;
+    padding: 0 0.5rem;
+    display: flex;
+    width: 60px;
+    justify-content: space-between;
+    border: 1px solid var(--dark-blue-color);
+    border-radius: 3rem;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.selectItems {
+    position: absolute;
+    top: 30px;
+    left: calc(100% - 60px);
+    width: 60px;
+    background-color: #fff;
+    box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    text-align: center;
+}
+
+.selectItem {
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    transition: background 300ms;
+    color: var(--dark-blue-color);
+    font-weight: bold;
+}
+
+.selectItem:not(:first-child) {
+    padding-top: 0;
+}
+
+.selectItem:hover {
+    background-color: var(--dark-blue-color);
+    color: var(--text-color);
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.3;
+}

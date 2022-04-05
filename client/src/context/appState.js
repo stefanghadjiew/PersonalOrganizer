@@ -26,5 +26,5 @@ export const appState = {
     books: [],
     futureProjects: [],
     others: [],
-    createLearningResource: false, // just change value from true to false to force a re-render and use it in the useLearningResources hook to fetch latest data
+    triggerRerender: false, // just change value from true to false to force a re-render and use it in the useLearningResources hook to fetch latest data
 };

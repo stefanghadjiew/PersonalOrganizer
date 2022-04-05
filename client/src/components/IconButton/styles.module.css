@@ -5,10 +5,15 @@
 .iconButton {
     border: 0;
     padding: 0.2rem;
-    border-radius: 10px;
+    border-radius: 50%;
     outline: 0;
     background-color: transparent;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.iconButton:hover {
+    background-color: lightgray;
 }
 
 .iconButton svg {
@@ -30,4 +35,9 @@
     border-radius: 1rem;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.3;
 }
