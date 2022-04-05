@@ -42,6 +42,11 @@ const reducer = (state, action) => {
                 ...state,
                 triggerRerender: !state.triggerRerender,
             };
+        case actionTypes.SET_RESULTS_PER_PAGE:
+            return {
+                ...state,
+                results_per_page: action.payload,
+            };
         case actionTypes.SET_MESSAGE_TOAST:
             return {
                 ...state,

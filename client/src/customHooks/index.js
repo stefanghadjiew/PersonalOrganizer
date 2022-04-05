@@ -100,18 +100,19 @@ export const usePortal = () => {
 };
 
 export const usePagination = resources => {
-    const resultsPerPage = 12;
+    const { applicationState } = useAppContext();
+    const { results_per_page } = applicationState;
     const [pages, setPages] = useState();
     const [currentPage, setCurrentPage] = useState(1);
     const [paginatedResources, setPaginatedResources] = useState([]);
 
     useEffect(() => {
-        setPages(Math.ceil(resources.length / resultsPerPage));
-    }, [resources]); // calculate number of pages
+        setPages(Math.ceil(resources.length / results_per_page));
+    }, [resources, results_per_page]); // calculate number of pages
 
     useEffect(() => {
         getPaginatedData();
-    }, [currentPage, resources]);
+    }, [currentPage, resources, results_per_page]);
 
     const goToNextPage = () => {
         setCurrentPage(currentPage => currentPage + 1);
@@ -132,8 +133,9 @@ export const usePagination = resources => {
     };
 
     const getPaginatedData = () => {
-        const startIndex = currentPage * resultsPerPage - resultsPerPage;
-        const endIndex = startIndex + resultsPerPage;
+        const startIndex =
+            currentPage * results_per_page - results_per_page;
+        const endIndex = startIndex + results_per_page;
         setPaginatedResources(resources.slice(startIndex, endIndex));
     };
 

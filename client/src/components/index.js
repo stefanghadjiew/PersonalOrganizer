@@ -14,3 +14,4 @@ export { default as CreateResourceDialog } from './CreateResourceDialog/CreateRe
 export { default as Checkbox } from './Checkbox/Checkbox.jsx';
 export { default as FramerMotionAnimations } from './FramerMotionAnimations/FramerMotionAnimations.jsx';
 export { default as Pagination } from './Pagination/Pagination.jsx';
+export { default as Select } from './Select/Select.jsx';

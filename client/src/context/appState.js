@@ -12,7 +12,7 @@ export const appState = {
             componentId: null,
         },
     },
-
+    results_per_page: 12,
     user: null,
     messageToast: [],
     javascript: [],

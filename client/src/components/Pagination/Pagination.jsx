@@ -1,5 +1,4 @@
 import React from 'react';
-import { usePagination } from '../../customHooks';
 import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from 'react-icons/ai';
 import IconButton from '../IconButton/IconButton';
 import classes from './styles.module.css';
