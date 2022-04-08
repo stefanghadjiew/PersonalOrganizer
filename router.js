@@ -20,6 +20,12 @@ const {
   createCSSResource,
   getAllCSSResources,
   deleteCSSResource,
+  createBooksResource,
+  getAllBooksResources,
+  deleteBooksResource,
+  createGitResource,
+  getAllGitResources,
+  deleteGitResource,
 } = require("./middleware/index.js");
 
 const router = express.Router();
@@ -51,6 +57,12 @@ router.post("/users/:userId/others/create", createOthersResource);
 router.get("/users/:userId/others/all", getAllOthersResources);
 router.delete("/others/:resourceId/delete", deleteOthersResource);
 
-console.log(router.stack[1].route);
+router.post("/users/:userId/books/create", createBooksResource);
+router.get("/users/:userId/books/all", getAllBooksResources);
+router.delete("/books/:resourceId/delete", deleteBooksResource);
+
+router.post("/users/:userId/git/create", createGitResource);
+router.get("/users/:userId/git/all", getAllGitResources);
+router.delete("/git/:resourceId/delete", deleteGitResource);
 
 module.exports = router;

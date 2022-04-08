@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from './styles.module.css';
 
 import { useAppContext } from '../../context/AppContext';
 import { useLearningResources } from '../../customHooks';
 import { setResultsPerPage } from '../../context/actions';
 import { GoTriangleDown, GoTriangleLeft } from 'react-icons/go';
+import { useNavigate } from 'react-router-dom';
 
 const Select = ({ learningResourceType }) => {
+    const navigate = useNavigate();
     const [openSelect, setOpenSelect] = useState(false);
     const resources = useLearningResources(learningResourceType);
     const { dispatch, applicationState } = useAppContext();
@@ -16,6 +18,10 @@ const Select = ({ learningResourceType }) => {
         setOpenSelect(false);
     };
     const perPageValues = [6, 12, 24];
+
+    useEffect(() => {
+        setResultsPerPage(dispatch, 6);
+    }, [navigate]);
 
     const renderSelectItems = perPageValues.map(value => (
         <div

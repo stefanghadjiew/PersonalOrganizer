@@ -3,10 +3,12 @@ import Input from '../Input/Input.jsx';
 import Button from '../Button/Button.jsx';
 import { useInput } from '../../customHooks';
 import classes from './styles.module.css';
+import { actionTypes } from '../../context/actionTypes.js';
+import { useAppContext } from '../../context/AppContext.js';
 
 const Search = ({ handleSearch, clearSearch }) => {
     const searchInput = useInput('');
-
+    const { dispatch } = useAppContext();
     return (
         <div className={classes.search}>
             <Input
@@ -30,6 +32,9 @@ const Search = ({ handleSearch, clearSearch }) => {
                         onClick={() => {
                             clearSearch();
                             searchInput.setValue('');
+                            dispatch({
+                                type: actionTypes.SET_TRIGGER_RERENDER,
+                            });
                         }}
                     />
                 )}

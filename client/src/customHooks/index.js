@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { validateInput } from '../utils';
 import { useAppContext } from '../context/AppContext';
 import { setLearningResources } from '../context/actions';
+import { useNavigate } from 'react-router-dom';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -100,11 +101,16 @@ export const usePortal = () => {
 };
 
 export const usePagination = resources => {
+    const navigate = useNavigate();
     const { applicationState } = useAppContext();
     const { results_per_page } = applicationState;
-    const [pages, setPages] = useState();
+    const [pages, setPages] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [paginatedResources, setPaginatedResources] = useState([]);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [navigate]);
 
     useEffect(() => {
         setPages(Math.ceil(resources.length / results_per_page));
@@ -142,10 +148,12 @@ export const usePagination = resources => {
     return {
         currentPage,
         pages,
+        setPages,
         paginatedResources,
         goToNextPage,
         goToPreviousPage,
         changePage,
+        setCurrentPage,
         getPaginationGroup,
     };
 };

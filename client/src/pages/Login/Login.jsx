@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
 import { loginUser } from '../../context/actions';
 import { Title } from '../../components';
-
 import { BsFillFilePersonFill } from 'react-icons/bs';
 
 const Login = () => {

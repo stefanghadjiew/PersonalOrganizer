@@ -5,13 +5,16 @@ import { AppLayout, PageLayout } from './layouts';
 import { SideBar, Navbar } from './components';
 import { BrowserRouter as Router } from 'react-router-dom';
 import BackdropPortal from './BackdropPortal/BackdropPortal.jsx';
+import { useMediaQueries } from './responsive/useMediaQueries.js';
 
 function App() {
+    const { isMobile } = useMediaQueries();
+
     return (
         <AppLayout>
             <AppContextProvider>
                 <Router>
-                    <SideBar />
+                    {!isMobile && <SideBar />}
                     <PageLayout>
                         <Navbar />
                         <MessageToast />

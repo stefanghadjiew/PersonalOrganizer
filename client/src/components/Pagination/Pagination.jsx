@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from 'react-icons/ai';
 import IconButton from '../IconButton/IconButton';
 import classes from './styles.module.css';
@@ -11,9 +11,21 @@ const Pagination = ({
     getPaginationGroup,
     currentPage,
     pages,
+    handleSearch,
+    searchResults,
+    setCurrentPage,
+    setPages,
 }) => {
     const { applicationState } = useAppContext();
     const { theme } = applicationState;
+
+    useEffect(() => {
+        if (searchResults?.length === 0) {
+            setCurrentPage(1);
+            setPages(1);
+        }
+    }, [handleSearch]);
+
     const renderPaginationButtons = getPaginationGroup().map(
         (item, idx) => (
             <button

@@ -1,8 +1,19 @@
 import React from 'react';
 import './styles.css';
+import { useAppContext } from '../../context/AppContext';
 
 const Page = ({ children }) => {
-    return <div className="page-wrapper">{children}</div>;
+    const { applicationState } = useAppContext();
+    const { theme } = applicationState;
+    return (
+        <div
+            className={
+                theme.light ? 'page-wrapper' : 'page-wrapper darkTheme'
+            }
+        >
+            {children}
+        </div>
+    );
 };
 
 export default Page;

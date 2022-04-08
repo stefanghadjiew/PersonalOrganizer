@@ -75,7 +75,8 @@ const CreateResourceDialog = ({ learningResourceType }) => {
     return (
         <FramerMotionAnimations
             animationType="top-to-bottom"
-            key="create-resource-dialog"
+            motionKey="create-resource-dialog"
+            motionDivStyle={{ width: '100%' }}
         >
             <Form
                 title="Create new resource"
