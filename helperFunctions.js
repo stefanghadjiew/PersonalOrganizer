@@ -55,11 +55,15 @@ const createResource = async (req, res, collection, userLearningResources) => {
     case db.CSS:
       userLearningResources[0].css.push(createdResource._id);
       break;
+    case db.GIT:
+      userLearningResources[0].git.push(createdResource._id);
+      break;
     default:
       return;
   }
 
   await userLearningResources[0].save();
+
   return createdResource;
 };
 
@@ -99,6 +103,9 @@ const getAllResources = async (collection, userLearningResources) => {
       break;
     case db.CSS:
       arrFromUserLearningResources = userLearningResources[0].css;
+      break;
+    case db.GIT:
+      arrFromUserLearningResources = userLearningResources[0].git;
       break;
     default:
       return;

@@ -7,6 +7,10 @@
     background-color: var(--dark-blue-color);
 }
 
+.maxWidth {
+    max-width: 250px;
+}
+
 .sideBarLinkWrapper {
     display: flex;
     align-items: center;

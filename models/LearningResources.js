@@ -58,6 +58,12 @@ const learningResourcesSchema = new Schema({
       ref: "Others",
     },
   ],
+  git: [
+    {
+      type: ObjectId,
+      ref: "GIT",
+    },
+  ],
   userId: {
     type: ObjectId,
     ref: "Users",

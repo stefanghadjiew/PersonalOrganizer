@@ -3,12 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case actionTypes.SET_LOADING: {
-            return {
-                ...state,
-                isLoading: action.payload,
-            };
-        }
         case actionTypes.SET_USER:
             return {
                 ...state,
@@ -71,7 +65,6 @@ const reducer = (state, action) => {
                     child: {
                         component: action.payload.component,
                         isOpen: action.payload.isOpen,
-                        componentId: action.payload.componentId,
                     },
                 },
             };

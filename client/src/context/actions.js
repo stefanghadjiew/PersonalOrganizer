@@ -37,7 +37,6 @@ export const setLearningResources = async (
     userId,
     learningResourceType
 ) => {
-    dispatch({ type: actionTypes.SET_LOADING, payload: true });
     const actionType = determineActionType(learningResourceType);
 
     try {
@@ -58,7 +57,6 @@ export const setLearningResources = async (
             },
         });
     }
-    dispatch({ type: actionTypes.SET_LOADING, payload: false });
 };
 
 export const setLightTheme = dispatch => {
@@ -76,7 +74,6 @@ export const openBackdropWithChild = (component, dispatch) => {
             open: true,
             component,
             isOpen: true,
-            componentId: component.props.componentId,
         },
     });
 };
@@ -95,7 +92,6 @@ export const closeBackdropAndRemoveChild = dispatch => {
             open: false,
             component: null,
             isOpen: false,
-            componentId: null,
         },
     });
 };

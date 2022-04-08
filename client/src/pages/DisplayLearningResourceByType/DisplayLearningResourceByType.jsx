@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Page } from '../../containers';
 import {
     Card,
@@ -7,6 +7,9 @@ import {
     Search,
     Button,
     FramerMotionAnimations,
+    CreateResourceDialog,
+    Pagination,
+    Select,
 } from '../../components';
 import { GridLayout } from '../../layouts';
 import {
@@ -14,16 +17,14 @@ import {
     useSearchResults,
     usePagination,
 } from '../../customHooks';
-import {
-    CreateResourceDialog,
-    Pagination,
-    Select,
-} from '../../components';
+
 import { useAppContext } from '../../context/AppContext';
 import { AnimatePresence } from 'framer-motion';
 import { openBackdropWithChild } from '../../context/actions';
 
 const DisplayLearningResourceByType = ({ learningResourceType }) => {
+    const { dispatch } = useAppContext();
+
     const resources = useLearningResources(learningResourceType);
 
     const {
@@ -33,10 +34,10 @@ const DisplayLearningResourceByType = ({ learningResourceType }) => {
         changePage,
         getPaginationGroup,
         currentPage,
+        setCurrentPage,
         pages,
+        setPages,
     } = usePagination(resources);
-
-    const { dispatch } = useAppContext();
 
     const [searchResults, handleSearch, clearSearchResults] =
         useSearchResults(paginatedResources);
@@ -44,19 +45,24 @@ const DisplayLearningResourceByType = ({ learningResourceType }) => {
     const renderLearningResources = paginatedResources?.map(
         learningResource => (
             <FramerMotionAnimations
-                key={learningResource._id}
                 animationType="left-to-right"
+                key={learningResource._id}
             >
                 <Card
-                    content={learningResource}
                     key={learningResource._id}
+                    content={learningResource}
                 />
             </FramerMotionAnimations>
         )
     );
 
     const renderSearchResults = searchResults?.map(result => (
-        <Card key={result._id} content={result} />
+        <FramerMotionAnimations
+            animationType="left-to-right"
+            key={result._id}
+        >
+            <Card key={result._id} content={result} />
+        </FramerMotionAnimations>
     ));
 
     return (
@@ -85,9 +91,7 @@ const DisplayLearningResourceByType = ({ learningResourceType }) => {
                     openBackdropWithChild(
                         <CreateResourceDialog
                             learningResourceType={learningResourceType}
-                            componentId="createResourceDialog-id"
                         />,
-
                         dispatch
                     );
                 }}
@@ -104,6 +108,7 @@ const DisplayLearningResourceByType = ({ learningResourceType }) => {
                         : renderLearningResources}
                 </AnimatePresence>
             </GridLayout>
+
             <Pagination
                 goToNextPage={goToNextPage}
                 goToPreviousPage={goToPreviousPage}
@@ -111,6 +116,11 @@ const DisplayLearningResourceByType = ({ learningResourceType }) => {
                 getPaginationGroup={getPaginationGroup}
                 currentPage={currentPage}
                 pages={pages}
+                //passing search results and functionality so that i can build a logic not to display pagination if there are no search results
+                handleSearch={handleSearch}
+                searchResults={searchResults}
+                setCurrentPage={setCurrentPage}
+                setPages={setPages}
             />
         </Page>
     );

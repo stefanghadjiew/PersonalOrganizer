@@ -12,6 +12,7 @@ import { AiFillDatabase } from 'react-icons/ai';
 import { AiOutlineFundProjectionScreen } from 'react-icons/ai';
 import { MdMore } from 'react-icons/md';
 import { RiTestTubeLine } from 'react-icons/ri';
+import { BiGitBranch } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { closeBackdropAndRemoveChild } from '../../context/actions';
@@ -113,6 +114,14 @@ export const useSidebarLinks = () => {
             icon: <MdMore className={classes.icon} />,
             link: isUserLogged('/others'),
             id: 11,
+            ref: useRef(null),
+            classOnClick: classes.classOnClick,
+        },
+        {
+            title: 'GIT',
+            icon: <BiGitBranch className={classes.icon} />,
+            link: isUserLogged('/git'),
+            id: 12,
             ref: useRef(null),
             classOnClick: classes.classOnClick,
         },

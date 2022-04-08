@@ -5,6 +5,11 @@
     position: relative;
     width: 100%;
     margin-top: 5rem;
+    color: var(--dark-blue-color);
 
     /* background-color: ???; */
+}
+
+.darkTheme {
+    color: var(--text-color);
 }

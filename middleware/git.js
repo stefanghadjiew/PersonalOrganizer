@@ -7,39 +7,41 @@ const {
 
 let cachedResources;
 
-const createBooksResource = async (req, res, next) => {
+const createGitResource = async (req, res, next) => {
   const { userId } = req.params;
-  const { Books, LearningResources } = db;
+  const { GIT, LearningResources } = db;
   let userLearningResources = await LearningResources.find({ userId });
+
   try {
     const createdResource = await createResource(
       req,
       res,
-      Books,
+      GIT,
       userLearningResources
     );
+
     res.status(200).json(createdResource);
   } catch (err) {
     return next(err);
   }
 };
 
-const getAllBooksResources = async (req, res, next) => {
+const getAllGitResources = async (req, res, next) => {
   const { userId } = req.params;
-  const { Books, LearningResources } = db;
+  const { GIT, LearningResources } = db;
   let userLearningResources = await LearningResources.find({ userId });
   try {
-    const allResources = await getAllResources(Books, userLearningResources);
+    const allResources = await getAllResources(GIT, userLearningResources);
     res.status(200).json(allResources);
   } catch (err) {
     return next(err);
   }
 };
 
-const deleteBooksResource = async (req, res, next) => {
-  const { Books } = db;
+const deleteGitResource = async (req, res, next) => {
+  const { GIT } = db;
   try {
-    const resourceToRemove = await deleteResource(req, Books);
+    const resourceToRemove = await deleteResource(req, GIT);
     res.status(200).json(resourceToRemove);
   } catch (err) {
     return next(err);
@@ -47,7 +49,7 @@ const deleteBooksResource = async (req, res, next) => {
 };
 
 module.exports = {
-  createBooksResource,
-  getAllBooksResources,
-  deleteBooksResource,
+  createGitResource,
+  getAllGitResources,
+  deleteGitResource,
 };

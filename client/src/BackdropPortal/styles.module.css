@@ -4,6 +4,4 @@
     background-color: var(--portal-element-background);
     z-index: 100;
     display: flex;
-    justify-content: center;
-    align-items: center;
 }

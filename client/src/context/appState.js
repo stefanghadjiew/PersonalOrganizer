@@ -1,5 +1,4 @@
 export const appState = {
-    isLoading: false,
     theme: {
         dark: false,
         light: true,
@@ -9,10 +8,9 @@ export const appState = {
         child: {
             component: null,
             isOpen: false,
-            componentId: null,
         },
     },
-    results_per_page: 12,
+    results_per_page: 6,
     user: null,
     messageToast: [],
     javascript: [],

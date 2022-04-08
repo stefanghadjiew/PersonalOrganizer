@@ -45,10 +45,7 @@ const Navbar = () => {
                         />
                     }
                     onClick={() => {
-                        openBackdropWithChild(
-                            <SideBar id="sidebar-id" />,
-                            dispatch
-                        );
+                        openBackdropWithChild(<SideBar />, dispatch);
                     }}
                 />
             )}

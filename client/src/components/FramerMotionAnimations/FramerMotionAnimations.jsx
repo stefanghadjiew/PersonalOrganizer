@@ -4,13 +4,15 @@ import { determinePageVariant } from '../../utils';
 const FramerMotionAnimations = ({
     children,
     animationType,
-    key = null,
+    motionKey,
+    motionDivStyle,
 }) => {
     const pageVariants = determinePageVariant(animationType);
 
     return (
         <motion.div
-            key={key}
+            key={motionKey}
+            style={motionDivStyle}
             initial={pageVariants.initial}
             animate={pageVariants.animate}
             exit={pageVariants.exit}

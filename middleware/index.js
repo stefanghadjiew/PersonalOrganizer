@@ -29,6 +29,16 @@ const {
   getAllCSSResources,
   deleteCSSResource,
 } = require("./css.js");
+const {
+  createBooksResource,
+  getAllBooksResources,
+  deleteBooksResource,
+} = require("./books.js");
+const {
+  createGitResource,
+  getAllGitResources,
+  deleteGitResource,
+} = require("./git.js");
 
 module.exports = {
   createUser,
@@ -51,4 +61,10 @@ module.exports = {
   createCSSResource,
   getAllCSSResources,
   deleteCSSResource,
+  createBooksResource,
+  getAllBooksResources,
+  deleteBooksResource,
+  createGitResource,
+  getAllGitResources,
+  deleteGitResource,
 };
