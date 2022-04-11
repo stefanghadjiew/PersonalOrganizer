@@ -167,21 +167,23 @@ export const useSidebarLinks = () => {
     };
 
     const renderSideBarLinks = sideBarLinks.map(sideBarLink => (
-        <div
-            className={classes.sideBarLinkWrapper}
-            key={sideBarLink.id}
+        <Link
+            onClick={() => handleLinkClick(sideBarLink)}
+            className="link"
+            to={sideBarLink.link}
             ref={sideBarLink.ref}
+            key={sideBarLink.id}
         >
-            {sideBarLink.icon}
-            <Link
-                onClick={() => handleLinkClick(sideBarLink)}
-                className="link"
-                to={sideBarLink.link}
-                ref={sideBarLink.ref}
+            <div
+                className={classes.sideBarLinkWrapper}
+                ref={sideBarLink.ref} // remove this in the future
             >
-                {sideBarLink.title}
-            </Link>
-        </div>
+                {sideBarLink.icon}
+                <span className={classes.linkTitle}>
+                    {sideBarLink.title}
+                </span>
+            </div>
+        </Link>
     ));
 
     return { renderSideBarLinks };

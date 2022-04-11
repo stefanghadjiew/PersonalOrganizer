@@ -6,8 +6,9 @@
     align-items: center;
     gap: 0.5rem;
     position: fixed;
-    width: calc(100% - 250px);
-    z-index: 100;
+    left: 70px;
+    width: calc(100% - 70px);
+    z-index: 3;
 }
 
 .navbar-icon {

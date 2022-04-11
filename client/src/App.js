@@ -17,9 +17,9 @@ function App() {
                     {!isMobile && <SideBar />}
                     <PageLayout>
                         <Navbar />
-                        <MessageToast />
                         <AppRouter />
                     </PageLayout>
+                    <MessageToast />
                     <BackdropPortal />
                 </Router>
             </AppContextProvider>

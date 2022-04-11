@@ -22,6 +22,8 @@ const Navbar = () => {
     const { user, theme } = applicationState;
     const navigate = useNavigate();
     const { isMobile } = useMediaQueries();
+    const githubRepoUrl = process.env.REACT_APP_GITHUB_REPO;
+    console.log(githubRepoUrl);
 
     return (
         <div
@@ -99,6 +101,9 @@ const Navbar = () => {
                             }
                         />
                     }
+                    onClick={() => {
+                        window.open(githubRepoUrl, '_blank');
+                    }}
                 />
             )}
 

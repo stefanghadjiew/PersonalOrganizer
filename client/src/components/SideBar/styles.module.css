@@ -1,14 +1,34 @@
 .sideBar {
-    min-width: 250px;
     display: flex;
-    padding: 5rem 1.5rem 2rem;
+    padding: 5rem 0;
     flex-direction: column;
     height: 100vh;
     background-color: var(--dark-blue-color);
+    justify-content: space-evenly;
+    white-space: nowrap;
+    transition: width 0.2s ease-in-out;
+    position: fixed;
 }
 
-.maxWidth {
-    max-width: 250px;
+.sideBar--width {
+    width: 70px;
+}
+
+.sideBar--width:hover {
+    width: 250px;
+}
+
+.sideBar--width--inBackdrop {
+    min-width: 250px;
+}
+
+.sideBar--span span {
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+}
+
+.sideBar--span:hover span {
+    opacity: 1;
 }
 
 .sideBarLinkWrapper {
@@ -45,8 +65,9 @@
 }
 
 .icon {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     color: var(--text-color);
+    margin-right: 1rem;
 }
 
 .classOnClick {

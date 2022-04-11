@@ -51,6 +51,7 @@ const DisplayLearningResourceByType = ({ learningResourceType }) => {
                 <Card
                     key={learningResource._id}
                     content={learningResource}
+                    learningResourceType={learningResourceType}
                 />
             </FramerMotionAnimations>
         )
@@ -61,7 +62,11 @@ const DisplayLearningResourceByType = ({ learningResourceType }) => {
             animationType="left-to-right"
             key={result._id}
         >
-            <Card key={result._id} content={result} />
+            <Card
+                key={result._id}
+                content={result}
+                learningResourceType={learningResourceType}
+            />
         </FramerMotionAnimations>
     ));
 

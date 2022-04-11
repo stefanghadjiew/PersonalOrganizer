@@ -1,4 +1,9 @@
-import { login, getLearningResources } from '../api';
+import {
+    login,
+    getLearningResources,
+    createLearningResource,
+    deleteLearningResource,
+} from '../api';
 import { actionTypes } from './actionTypes';
 import { learningResourcesType } from './learningResourcesType';
 
@@ -94,6 +99,47 @@ export const closeBackdropAndRemoveChild = dispatch => {
             isOpen: false,
         },
     });
+};
+
+export const createNewResource = async ({
+    dispatch,
+    userId,
+    learningResourceType,
+    link,
+}) => {
+    try {
+        await createLearningResource(userId, learningResourceType, {
+            link: link.value,
+        });
+        dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+    } catch (err) {
+        dispatch({
+            type: actionTypes.SET_MESSAGE_TOAST,
+            payload: {
+                type: 'error',
+                description: err.message,
+            },
+        });
+    }
+};
+
+export const deleteResource = async ({
+    dispatch,
+    learningResourceType,
+    resourceId,
+}) => {
+    try {
+        await deleteLearningResource({ learningResourceType, resourceId });
+        dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+    } catch (err) {
+        dispatch({
+            type: actionTypes.SET_MESSAGE_TOAST,
+            payload: {
+                type: 'error',
+                description: err.message,
+            },
+        });
+    }
 };
 
 const determineActionType = learningResourceType => {

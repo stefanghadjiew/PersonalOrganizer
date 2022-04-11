@@ -53,10 +53,10 @@ export const createLearningResource = async (
     }
 };
 
-export const deleteLearningResource = async (
+export const deleteLearningResource = async ({
     learningResourceType,
-    resourceId
-) => {
+    resourceId,
+}) => {
     const url = buildDeleteResourceUrl(learningResourceType, resourceId);
     try {
         const res = await axios.delete(url);

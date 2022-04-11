@@ -1,0 +1,21 @@
+.dialog {
+    position: absolute;
+    padding: 1rem;
+    width: 250px;
+    border-top: 12px solid var(--message-toast-error);
+    border-radius: 0.5rem;
+    background-color: var(--text-color);
+    bottom: 25%;
+    right: 1rem;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-around;
+}
+
+.dialogTitle {
+    color: var(--dark-text-color);
+    text-align: center;
+    margin-bottom: 1rem;
+}

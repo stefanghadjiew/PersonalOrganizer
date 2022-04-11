@@ -27,6 +27,7 @@ const Login = () => {
                 text="Personal Organizer"
             />
             <Form
+                containerStyle={{ paddingRight: '70px' }}
                 title="Log Into Your Account"
                 icon={<BsFillFilePersonFill />}
             >

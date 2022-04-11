@@ -6,6 +6,7 @@ const FramerMotionAnimations = ({
     animationType,
     motionKey,
     motionDivStyle,
+    style,
 }) => {
     const pageVariants = determinePageVariant(animationType);
 

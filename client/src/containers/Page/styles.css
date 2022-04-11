@@ -1,5 +1,6 @@
 .page-wrapper {
-    padding: 0 2.5rem;
+    width: calc(100% - 70px);
+    padding: 0 2.5rem 0 calc(2.5rem + 70px);
     display: flex;
     flex-direction: column;
     position: relative;

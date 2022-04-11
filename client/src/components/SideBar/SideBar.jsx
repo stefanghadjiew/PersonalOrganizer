@@ -16,16 +16,17 @@ const SideBar = () => {
         <FramerMotionAnimations
             animationType="left-to-right-1"
             motionKey="sidebar"
+            motionDivStyle={{ zIndex: 4 }}
         >
             <div
                 className={
                     theme.light
                         ? isMobile
-                            ? `${classes.sideBar} ${classes.maxWidth}`
-                            : classes.sideBar
+                            ? `${classes.sideBar} ${classes['sideBar--width--inBackdrop']}` // when in Backdrop portal
+                            : `${classes.sideBar} ${classes['sideBar--width']} ${classes['sideBar--span']}`
                         : isMobile
-                        ? `${classes.sideBar} ${classes.darkTheme} ${classes.maxWidth}`
-                        : `${classes.sideBar} ${classes.darkTheme}`
+                        ? `${classes.sideBar} ${classes.darkTheme} ${classes['sideBar--width--inBackdrop']}` // when in Backdrop portal
+                        : `${classes.sideBar} ${classes.darkTheme} ${classes['sideBar--width']} ${classes['sideBar--span']}`
                 }
             >
                 {renderSideBarLinks}
