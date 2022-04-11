@@ -16,3 +16,6 @@ export { default as FramerMotionAnimations } from './FramerMotionAnimations/Fram
 export { default as Pagination } from './Pagination/Pagination.jsx';
 export { default as Select } from './Select/Select.jsx';
 export { default as LoadingIndicator } from './LoadingIndicator/LoadingIndicator.jsx';
+export { default as VideoPlayer } from './VideoPlayer/VideoPlayer.jsx';
+export { default as ClickAwayListener } from './ClickAwayListener/ClickAwayListener.jsx';
+export { default as ConfirmationDialog } from './ConfirmationDialog/ConfirmationDialog.jsx';

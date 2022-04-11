@@ -8,12 +8,13 @@ import { IoIosClose } from 'react-icons/io';
 import IconButton from '../IconButton/IconButton.jsx';
 import { TransitionGroup, CSSTransition } from 'react-transition-group'; // doesent work with css modules ??
 import { useAppContext } from '../../context/AppContext.js';
-import { actionTypes } from '../../context/actionTypes.js';
-import { createLearningResource } from '../../api/index.js';
 import './styles.css';
 import FramerMotionAnimations from '../FramerMotionAnimations/FramerMotionAnimations.jsx';
 
-import { closeBackdropAndRemoveChild } from '../../context/actions.js';
+import {
+    closeBackdropAndRemoveChild,
+    createNewResource,
+} from '../../context/actions.js';
 
 const CreateResourceDialog = ({ learningResourceType }) => {
     const { dispatch, applicationState } = useAppContext();
@@ -54,22 +55,14 @@ const CreateResourceDialog = ({ learningResourceType }) => {
         </CSSTransition>
     ));
 
-    const createNewResource = async e => {
+    const createResource = async e => {
         e.preventDefault();
-        try {
-            await createLearningResource(id, learningResourceType, {
-                link: link.value,
-            });
-            dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
-        } catch (err) {
-            dispatch({
-                type: actionTypes.SET_MESSAGE_TOAST,
-                payload: {
-                    type: 'error',
-                    description: err.message,
-                },
-            });
-        }
+        await createNewResource({
+            dispatch,
+            userId: id,
+            learningResourceType,
+            link,
+        });
     };
 
     return (
@@ -111,7 +104,7 @@ const CreateResourceDialog = ({ learningResourceType }) => {
                 </TransitionGroup>
                 <Button
                     text="Create Resource"
-                    onClick={createNewResource}
+                    onClick={createResource}
                     disabled={link.value === ''}
                 />
                 <div className="icon-button-wrapper">

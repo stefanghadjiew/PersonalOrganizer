@@ -88,7 +88,7 @@ export const usePortal = () => {
     useEffect(() => {
         const div = document.createElement('div');
         div.id = portalId;
-        div.style = `position: fixed; z-index: 1000;`;
+        div.style = `position: fixed; z-index: 10;`;
         document.getElementsByTagName('body')[0].prepend(div);
         /* document.getElementById('root').prepend(div); */
         setLoaded(true);
