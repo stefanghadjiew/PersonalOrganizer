@@ -14,7 +14,7 @@ const Card = ({ content, learningResourceType }) => {
     const cardRef = useRef();
     const viewResourceButtonRef = useRef();
     const { dispatch, applicationState } = useAppContext();
-    const { backdrop } = applicationState;
+    const { backdrop, theme } = applicationState;
     const { title, description, img, link, _id } = content || null;
 
     const openInVideoPlayer = () => {
@@ -45,7 +45,14 @@ const Card = ({ content, learningResourceType }) => {
     };
 
     return (
-        <div className={classes.card} ref={cardRef}>
+        <div
+            className={
+                theme.dark
+                    ? `${classes.card} ${classes['card-dark-theme']}`
+                    : classes.card
+            }
+            ref={cardRef}
+        >
             <a href={link} className={classes.link}>
                 {link}
             </a>

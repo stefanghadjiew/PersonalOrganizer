@@ -23,7 +23,6 @@ const Navbar = () => {
     const navigate = useNavigate();
     const { isMobile } = useMediaQueries();
     const githubRepoUrl = process.env.REACT_APP_GITHUB_REPO;
-    console.log(githubRepoUrl);
 
     return (
         <div

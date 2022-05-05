@@ -3,6 +3,20 @@ import {
     getLearningResources,
     createLearningResource,
     deleteLearningResource,
+    apiCreateProject,
+    apiDeleteProject,
+    apiEditProject,
+    apiCreateProjectTask,
+    apiEditProjectTask,
+    apiDeleteProjectTask,
+    apiCreateProjectTaskSubtask,
+    apiEditProjectTaskSubtask,
+    apiDeleteProjectTaskSubtask,
+    apiCreateTag,
+    apiMarkTaskAsDone,
+    apiMarkTaskSubtaskAsDone,
+    apiDeleteProjectTaskTag,
+    apiDeleteProjectTaskSubtaskTag,
 } from '../api';
 import { actionTypes } from './actionTypes';
 import { learningResourcesType } from './learningResourcesType';
@@ -14,22 +28,10 @@ export const loginUser = async (dispatch, userInfo, navigate) => {
             type: actionTypes.SET_USER,
             payload: { name: res.name, token: res.token, id: res.id },
         });
-        dispatch({
-            type: actionTypes.SET_MESSAGE_TOAST,
-            payload: {
-                type: 'success',
-                description: res.message,
-            },
-        });
+        openMessageToastWithSuccess(dispatch, res.message);
         navigate('/javascript');
     } catch (err) {
-        dispatch({
-            type: actionTypes.SET_MESSAGE_TOAST,
-            payload: {
-                type: 'error',
-                description: err.message,
-            },
-        });
+        openMessageToastWithError(dispatch, err.message);
     }
 };
 
@@ -54,13 +56,7 @@ export const setLearningResources = async (
             payload: res,
         });
     } catch (err) {
-        dispatch({
-            type: actionTypes.SET_MESSAGE_TOAST,
-            payload: {
-                type: 'error',
-                description: err.message,
-            },
-        });
+        openMessageToastWithError(dispatch, err.message);
     }
 };
 
@@ -113,13 +109,7 @@ export const createNewResource = async ({
         });
         dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
     } catch (err) {
-        dispatch({
-            type: actionTypes.SET_MESSAGE_TOAST,
-            payload: {
-                type: 'error',
-                description: err.message,
-            },
-        });
+        openMessageToastWithError(dispatch, err.message);
     }
 };
 
@@ -132,13 +122,186 @@ export const deleteResource = async ({
         await deleteLearningResource({ learningResourceType, resourceId });
         dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
     } catch (err) {
-        dispatch({
-            type: actionTypes.SET_MESSAGE_TOAST,
-            payload: {
-                type: 'error',
-                description: err.message,
-            },
+        openMessageToastWithError(dispatch, err.message);
+    }
+};
+
+//TODO: Projects Page
+export const createProject = async ({
+    dispatch,
+    userId,
+    learningResourceType,
+    data,
+}) => {
+    try {
+        const res = await apiCreateProject({
+            userId,
+            learningResourceType,
+            data,
         });
+        dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+        openMessageToastWithSuccess(dispatch, res.message);
+        closeBackdropAndRemoveChild(dispatch);
+    } catch (err) {
+        openMessageToastWithError(dispatch, err.message);
+    }
+};
+
+export const deleteProject = async ({
+    dispatch,
+    resourceId,
+    learningResourceType,
+}) => {
+    try {
+        const res = await apiDeleteProject({
+            resourceId,
+            learningResourceType,
+        });
+        dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+        openMessageToastWithSuccess(dispatch, res.message);
+        closeBackdropAndRemoveChild(dispatch);
+    } catch (err) {
+        openMessageToastWithError(dispatch, err.message);
+    }
+};
+
+export const editProject = async ({ dispatch, resourceId, data }) => {
+    try {
+        const res = await apiEditProject({ resourceId, data });
+        dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+        openMessageToastWithSuccess(dispatch, res.message);
+        closeBackdropAndRemoveChild(dispatch);
+    } catch (err) {
+        openMessageToastWithError(dispatch, err.message);
+    }
+};
+
+export const createProjectTask = async ({ dispatch, projectId, data }) => {
+    try {
+        const res = await apiCreateProjectTask({ projectId, data });
+        dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+        openMessageToastWithSuccess(dispatch, res.message);
+        closeBackdropAndRemoveChild(dispatch);
+    } catch (err) {
+        openMessageToastWithError(dispatch, err.message);
+    }
+};
+export const editProjectTask = async ({
+    dispatch,
+    projectId,
+    taskId,
+    data,
+}) => {
+    try {
+        const res = await apiEditProjectTask({ projectId, taskId, data });
+        openMessageToastWithSuccess(dispatch, res.message);
+        dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+    } catch (err) {
+        openMessageToastWithError(dispatch, err.message);
+    }
+};
+export const deleteProjectTask = async ({
+    dispatch,
+    projectId,
+    taskId,
+}) => {
+    try {
+        const res = await apiDeleteProjectTask({ projectId, taskId });
+        openMessageToastWithSuccess(dispatch, res.message);
+        dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+    } catch (err) {
+        openMessageToastWithError(dispatch, err.message);
+    }
+};
+
+export const createProjectTaskSubtask = async ({
+    dispatch,
+    projectId,
+    taskId,
+    data,
+}) => {
+    try {
+        const res = await apiCreateProjectTaskSubtask({
+            projectId,
+            taskId,
+            data,
+        });
+        openMessageToastWithSuccess(dispatch, res.message);
+        dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+    } catch (err) {
+        openMessageToastWithError(dispatch, err.message);
+    }
+};
+export const editProjectTaskSubtask = async ({
+    dispatch,
+    projectId,
+    taskId,
+    subtaskId,
+    data,
+}) => {
+    try {
+        const res = await apiEditProjectTaskSubtask({
+            projectId,
+            taskId,
+            subtaskId,
+            data,
+        });
+        openMessageToastWithSuccess(dispatch, res.message);
+        dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+    } catch (err) {
+        openMessageToastWithError(dispatch, err.message);
+    }
+};
+export const deleteProjectTaskSubtask = async ({
+    dispatch,
+    projectId,
+    taskId,
+    subtaskId,
+}) => {
+    try {
+        const res = await apiDeleteProjectTaskSubtask({
+            projectId,
+            taskId,
+            subtaskId,
+        });
+        openMessageToastWithSuccess(dispatch, res.message);
+        dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+    } catch (err) {
+        openMessageToastWithError(dispatch, err.message);
+    }
+};
+
+export const createTag = async () => {};
+
+export const markProjectTaskAsDone = async ({
+    dispatch,
+    projectId,
+    taskId,
+}) => {
+    try {
+        const res = await apiMarkTaskAsDone({ projectId, taskId });
+        openMessageToastWithSuccess(dispatch, res.message);
+        dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+    } catch (err) {
+        openMessageToastWithError(dispatch, err.message);
+    }
+};
+export const markProjectTaskSubtaskAsDone = async ({
+    dispatch,
+    projectId,
+    taskId,
+    subtaskId,
+}) => {
+    try {
+        const res = await apiMarkTaskSubtaskAsDone({
+            projectId,
+            taskId,
+            subtaskId,
+        });
+        openMessageToastWithSuccess(dispatch, res.message);
+        dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+    } catch (err) {
+        openMessageToastWithError(dispatch, err.message);
     }
 };
 
@@ -156,7 +319,28 @@ const determineActionType = learningResourceType => {
             return actionTypes.SET_CSS_RESOURCES;
         case learningResourcesType.OTHERS:
             return actionTypes.SET_OTHERS_RESOURCES;
+        case learningResourcesType.PROJECTS:
+            return actionTypes.SET_PROJECTS;
         default:
             return;
     }
+};
+
+const openMessageToastWithSuccess = (dispatch, message) => {
+    dispatch({
+        type: actionTypes.SET_MESSAGE_TOAST,
+        payload: {
+            type: 'success',
+            description: message,
+        },
+    });
+};
+const openMessageToastWithError = (dispatch, message) => {
+    dispatch({
+        type: actionTypes.SET_MESSAGE_TOAST,
+        payload: {
+            type: 'error',
+            description: message,
+        },
+    });
 };

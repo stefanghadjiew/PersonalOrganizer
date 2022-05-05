@@ -4,6 +4,7 @@ import classes from './styles.module.css';
 import ReactDOM from 'react-dom';
 import { AnimatePresence } from 'framer-motion';
 import { FramerMotionAnimations } from '../components';
+import { ClickAwayListener } from '../components';
 
 const BackdropPortal = () => {
     const { applicationState } = useAppContext();
@@ -20,7 +21,9 @@ const BackdropPortal = () => {
                               className={classes.backdropContainer}
                               key="some-key"
                           >
-                              {child.component}
+                              <ClickAwayListener>
+                                  {child.component}
+                              </ClickAwayListener>
                           </div>
                       </FramerMotionAnimations>
                   )}

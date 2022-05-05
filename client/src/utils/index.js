@@ -39,6 +39,8 @@ export const getLearningResourceType = resourceType => {
             return learningResourcesType.REACTJS;
         case 'css':
             return learningResourcesType.CSS;
+        case 'projects':
+            return learningResourcesType.PROJECTS;
         default:
             return '';
     }

@@ -26,6 +26,22 @@ const {
   createGitResource,
   getAllGitResources,
   deleteGitResource,
+  createProject,
+  createProjectTask,
+  createProjectTaskSubtask,
+  createProjecTaskTag,
+  createProjectTaskSubtaskTag,
+  getAllProjects,
+  deleteProject,
+  deleteProjectTask,
+  deleteProjectTaskSubtask,
+  editProject,
+  editProjectTask,
+  editProjectTaskSubtask,
+  markTaskAsDone,
+  markTaskSubtaskAsDone,
+  deleteProjectTaskTag,
+  deleteProjectTaskSubtaskTag,
 } = require("./middleware/index.js");
 
 const router = express.Router();
@@ -64,5 +80,51 @@ router.delete("/books/:resourceId/delete", deleteBooksResource);
 router.post("/users/:userId/git/create", createGitResource);
 router.get("/users/:userId/git/all", getAllGitResources);
 router.delete("/git/:resourceId/delete", deleteGitResource);
+
+router.post("/users/:userId/projects/create", createProject); //tested-working
+router.post("/projects/:projectId/tasks/create", createProjectTask); //tested-working
+router.post(
+  "/projects/:projectId/tasks/:taskId/subtasks/create",
+  createProjectTaskSubtask
+); //tested-working
+router.post(
+  "/projects/:projectId/tasks/:taskId/tags/create",
+  createProjecTaskTag
+); //tested-working (test if multiple tags can be added)
+router.post(
+  "/projects/:projectId/tasks/:taskId/subtasks/:subtaskId/tags/create",
+  createProjectTaskSubtaskTag
+); //tested-working
+router.get("/users/:userId/projects/all", getAllProjects); //tested-working
+router.delete("/projects/:projectId/delete", deleteProject); //tested - working
+router.delete("/projects/:projectId/tasks/:taskId/delete", deleteProjectTask); //tested-working
+router.delete(
+  "/projects/:projectId/tasks/:taskId/subtasks/:subtaskId/delete",
+  deleteProjectTaskSubtask
+); //tested-working
+
+router.delete(
+  "/projects/:projectId/tasks/:taskId/tags/delete",
+  deleteProjectTaskTag
+);
+router.delete(
+  "/projects/:projectId/task/:taskId/subtasks/:subtaskId/tags/delete",
+  deleteProjectTaskSubtaskTag
+);
+
+router.put("/projects/:projectId/edit", editProject); //tested-working
+router.put("/projects/:projectId/tasks/:taskId/edit", editProjectTask); //tested-working
+router.put(
+  "/projects/:projectId/tasks/:taskId/subtasks/:subtaskId/edit",
+  editProjectTaskSubtask
+); //tested-working
+router.put(
+  "/projects/:projectId/tasks/:taskId/mark-task-as-done",
+  markTaskAsDone
+); //tested-working
+router.put(
+  "/projects/:projectId/tasks/:taskId/subtasks/:subtaskId/mark-subtask-as-done",
+  markTaskSubtaskAsDone
+); //tested-working
 
 module.exports = router;

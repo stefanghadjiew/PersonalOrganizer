@@ -7,7 +7,13 @@ const ClickAwayListener = ({ children }) => {
     const { dispatch } = useAppContext();
 
     const handleClickAway = e => {
-        closeBackdropAndRemoveChild(dispatch);
+        if (
+            e.target.className.includes('clickAwayListener') ||
+            e.target.className.includes('form-container')
+        ) {
+            closeBackdropAndRemoveChild(dispatch);
+        }
+        return;
     };
 
     return (
