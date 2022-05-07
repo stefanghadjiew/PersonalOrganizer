@@ -31,6 +31,11 @@ body {
     --css-color: #264de4;
     --mongodb-color: #3fa037;
     --dark-theme-bgcolor: #212121;
+    --low-priority-tag: #f85858;
+    --remember-tag: #7c82f7;
+    --bugs-tag: #c3d601;
+    --test-tag: #6ee14a;
+    --blocker-tag: #f88058;
 }
 
 *,

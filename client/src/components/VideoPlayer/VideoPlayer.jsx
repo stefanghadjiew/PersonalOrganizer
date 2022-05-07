@@ -1,15 +1,12 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
-
-import ClickAwayListener from '../ClickAwayListener/ClickAwayListener';
+import classes from './styles.module.css';
 
 const VideoPlayer = ({ url }) => {
     return (
-        <ClickAwayListener>
-            <div>
-                <ReactPlayer url={url} controls={true} />
-            </div>
-        </ClickAwayListener>
+        <div className={classes.responsiveReactPlayer}>
+            <ReactPlayer url={url} controls={true} />
+        </div>
     );
 };
 

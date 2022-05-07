@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from './styles.module.css';
 import Button from '../Button/Button';
 import { useAppContext } from '../../context/AppContext';
@@ -11,8 +11,10 @@ const ConfirmationDialog = ({
     confirmationDialogState,
     resourceId,
     learningResourceType,
+    style,
 }) => {
-    const { dispatch } = useAppContext();
+    const { dispatch, applicationState } = useAppContext();
+    const { backdrop } = applicationState;
     const { isConfirmationDialogOpen, setIsConfirmationDialogOpen } =
         confirmationDialogState;
 
@@ -21,10 +23,16 @@ const ConfirmationDialog = ({
         setIsConfirmationDialogOpen(false);
     };
 
+    useEffect(() => {
+        if (!backdrop.open) {
+            setIsConfirmationDialogOpen(false);
+        }
+    }, [backdrop.open]);
+
     if (!isConfirmationDialogOpen) return null;
 
     return (
-        <div className={classes.dialog}>
+        <div style={style} className={classes.dialog}>
             <h3 className={classes.dialogTitle}>Confirm Delete?</h3>
             <div className={classes.actions}>
                 <Button

@@ -1,5 +1,5 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { DisplayLearningResourceByType, Login } from './pages';
+import { DisplayLearningResourceByType, Login, Projects } from './pages';
 import { useAppContext } from './context/AppContext';
 import { getLearningResourceType } from './utils';
 import { useEffect } from 'react';
@@ -99,7 +99,21 @@ const AppRouter = () => {
         />
     ));
 
-    return <Routes>{renderResourcesRoutes}</Routes>;
+    return (
+        <Routes>
+            <Route
+                path="projects"
+                element={
+                    <Projects
+                        learningResourceType={getLearningResourceType(
+                            'projects'
+                        )}
+                    />
+                }
+            />
+            {renderResourcesRoutes}
+        </Routes>
+    );
 };
 
 export default AppRouter;

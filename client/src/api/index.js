@@ -65,3 +65,272 @@ export const deleteLearningResource = async ({
         throw new Error(err.response.data.message);
     }
 };
+
+//Projects page is different than LearningResources pages
+const buildEditProjectUrl = projectId => {
+    const url = `${BASE_URL}/projects/${projectId}/edit`;
+    return url;
+};
+
+const buildCreateProjectTaskUrl = projectId => {
+    const url = `${BASE_URL}/projects/${projectId}/tasks/create`;
+    return url;
+};
+
+const buildEditProjectTaskUrl = (projectId, taskId) => {
+    const url = `${BASE_URL}/projects/${projectId}/tasks/${taskId}/edit`;
+    return url;
+};
+
+const buildDeleteProjectTaskUrl = (projectId, taskId) => {
+    const url = `${BASE_URL}/projects/${projectId}/task/${taskId}/delete`;
+    return url;
+};
+
+const buildCreateProjectTaskSubtask = (projectId, taskId) => {
+    const url = `${BASE_URL}/projects/${projectId}/tasks/${taskId}/subtasks/create`;
+    return url;
+};
+
+const buildDeleteProjectTaskSubtaskUrl = (
+    projectId,
+    taskId,
+    subtaskId
+) => {
+    const url = `${BASE_URL}/projects/${projectId}/tasks/${taskId}/subtasks/${subtaskId}/delete`;
+    return url;
+};
+
+const buildEditProjectTaskSubtaskUrl = (projectId, taskId, subtaskId) => {
+    const url = `${BASE_URL}/projects/${projectId}/tasks/${taskId}/subtasks/${subtaskId}/edit`;
+    return url;
+};
+
+const buildMarkTaskAsDoneUrl = (projectId, taskId) => {
+    const url = `${BASE_URL}/projects/${projectId}/tasks/${taskId}/mark-task-as-done`;
+    return url;
+};
+
+const buildMarkTaskSubtaskAsDone = (projectId, taskId, subtaskId) => {
+    const url = `${BASE_URL}/projects/${projectId}/tasks/${taskId}/subtasks/${subtaskId}/mark-subtask-as-done`;
+    return url;
+};
+
+const buildCreateProjetTaskTagUrl = (projectId, taskId) => {
+    const url = `${BASE_URL}/projects/${projectId}/tasks/${taskId}/tags/create`;
+    return url;
+};
+
+const buildCreateProjectTaskSubtaskTagUrl = (
+    projectId,
+    taskId,
+    subtaskId
+) => {
+    const url = `${BASE_URL}/projects/${projectId}/tasks/${taskId}/subtask/${subtaskId}/tags/create`;
+    return url;
+};
+
+const buildDeleteProjectTaskTag = (projectId, taskId) => {
+    const url = `${BASE_URL}/projects/${projectId}/tasks/${taskId}/delete`;
+    return url;
+};
+
+const buildDeleteProjectTaskSubtaskTag = (
+    projectId,
+    taskId,
+    subtaskId
+) => {
+    const url = `${BASE_URL}/projects/${projectId}/tasks/${taskId}/subtasks/${subtaskId}/delete`;
+    return url;
+};
+
+export const apiCreateProject = async ({
+    userId,
+    learningResourceType,
+    data,
+}) => {
+    const url = buildCreateResourceUrl(userId, learningResourceType);
+    try {
+        const res = await axios.post(url, { projectTitle: data });
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+
+export const apiDeleteProject = async ({
+    resourceId,
+    learningResourceType,
+}) => {
+    const url = buildDeleteResourceUrl(resourceId, learningResourceType);
+    try {
+        const res = await axios.delete(url);
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+
+export const apiEditProject = async ({ resourceId, data }) => {
+    const url = buildEditProjectUrl(resourceId);
+    try {
+        const res = await axios.put(url, { projectTitle: data });
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+
+export const apiCreateProjectTask = async ({ projectId, data }) => {
+    const url = buildCreateProjectTaskUrl(projectId);
+    try {
+        const res = await axios.post(url, { taskTitle: data });
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+export const apiEditProjectTask = async ({ projectId, taskId, data }) => {
+    const url = buildEditProjectTaskUrl(projectId, taskId);
+    try {
+        const res = await axios.put(url, { taskTitle: data });
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+export const apiDeleteProjectTask = async ({ projectId, taskId }) => {
+    const url = buildDeleteProjectTaskUrl(projectId, taskId);
+    try {
+        const res = await axios.delete(url);
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+export const apiCreateProjectTaskSubtask = async ({
+    projectId,
+    taskId,
+    data,
+}) => {
+    const url = buildCreateProjectTaskSubtask(projectId, taskId);
+    try {
+        const res = await axios.post(url, { taskSubtaskTitle: data });
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+export const apiEditProjectTaskSubtask = async ({
+    projectId,
+    taskId,
+    subtaskId,
+    data,
+}) => {
+    const url = buildEditProjectTaskSubtaskUrl(
+        projectId,
+        taskId,
+        subtaskId
+    );
+    try {
+        const res = await axios.put(url, { taskSubtaskTitle: data });
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+export const apiDeleteProjectTaskSubtask = async ({
+    projectId,
+    taskId,
+    subtaskId,
+}) => {
+    const url = buildDeleteProjectTaskSubtaskUrl(
+        projectId,
+        taskId,
+        subtaskId
+    );
+    try {
+        const res = await axios.delete(url);
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+export const apiCreateTag = async ({ type, config }) => {
+    switch (type) {
+        case 'task':
+            const { projectId, taskId, tag } = config;
+            let url = buildCreateProjetTaskTagUrl(projectId, taskId);
+            try {
+                const res = await axios.post(url, tag);
+                return res.data;
+            } catch (err) {
+                throw new Error(err.response.data.message);
+            }
+
+        case 'subtask':
+            const { subtaskId } = config;
+            url = buildCreateProjectTaskSubtaskTagUrl(
+                projectId,
+                taskId,
+                subtaskId
+            );
+            try {
+                const res = await axios.post(url, tag);
+                return res.data;
+            } catch (err) {
+                throw new Error(err.response.data.message);
+            }
+        default:
+            return;
+    }
+};
+export const apiMarkTaskAsDone = async ({ projectId, taskId }) => {
+    const url = buildMarkTaskAsDoneUrl(projectId, taskId);
+    try {
+        const res = await axios.post(url);
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+export const apiMarkTaskSubtaskAsDone = async ({
+    projectId,
+    taskId,
+    subtaskId,
+}) => {
+    const url = buildMarkTaskSubtaskAsDone(projectId, taskId, subtaskId);
+    try {
+        const res = await axios.post(url);
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+
+export const apiDeleteProjectTaskTag = async ({ projectId, taskId }) => {
+    const url = buildDeleteProjectTaskTag(projectId, taskId);
+    try {
+        const res = await axios.delete(url);
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+export const apiDeleteProjectTaskSubtaskTag = async ({
+    projectId,
+    taskId,
+    subtaskId,
+}) => {
+    const url = buildDeleteProjectTaskSubtaskTag(
+        projectId,
+        taskId,
+        subtaskId
+    );
+    try {
+        const res = await axios.delete(url);
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};

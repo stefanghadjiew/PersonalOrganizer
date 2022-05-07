@@ -10,6 +10,10 @@
     position: fixed;
 }
 
+.sideBar:hover .sideBarLinkWrapper {
+    pointer-events: all;
+}
+
 .sideBar--width {
     width: 70px;
 }
@@ -24,6 +28,7 @@
 
 .sideBar--span span {
     opacity: 0;
+
     transition: opacity 0.2s ease-in;
 }
 
@@ -40,6 +45,7 @@
     transition: all 0.3s ease-in-out;
     padding: 0 0.5rem;
     border-radius: 3rem;
+    pointer-events: none;
 }
 
 .sideBarLinkWrapper:hover {

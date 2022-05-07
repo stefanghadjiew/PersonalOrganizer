@@ -20,3 +20,4 @@ module.exports.FutureProjects = require("../models/FutureProjects.js");
 module.exports.Others = require("../models/Others.js");
 module.exports.CSS = require("../models/CSS.js");
 module.exports.GIT = require("../models/GIT.js");
+module.exports.Projects = require("../models/Projects.js");

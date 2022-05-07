@@ -1,0 +1,29 @@
+.inputs {
+    display: flex;
+    width: 100%;
+}
+
+.createTask {
+    display: flex;
+    position: relative;
+}
+
+.projectsContainer {
+    width: 100%;
+    display: flex;
+    margin-top: 1.5rem;
+}
+
+.projects {
+    width: 30%;
+}
+
+.taskListContainer {
+    width: 60%;
+    padding-left: 1rem;
+}
+
+.selected {
+    border-left: 12px solid var(--dark-blue-color);
+    transition: border 0.3s ease-in-out;
+}
