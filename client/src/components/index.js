@@ -19,3 +19,4 @@ export { default as LoadingIndicator } from './LoadingIndicator/LoadingIndicator
 export { default as VideoPlayer } from './VideoPlayer/VideoPlayer.jsx';
 export { default as ClickAwayListener } from './ClickAwayListener/ClickAwayListener.jsx';
 export { default as ConfirmationDialog } from './ConfirmationDialog/ConfirmationDialog.jsx';
+export { default as Tooltip } from './Tooltip/Tooltip.jsx';

@@ -5,6 +5,9 @@ import { useAppContext } from '../../context/AppContext';
 import {
     closeBackdropAndRemoveChild,
     deleteResource,
+    deleteProject,
+    deleteProjectTask,
+    deleteProjectTaskSubtask,
 } from '../../context/actions';
 
 const ConfirmationDialog = ({
@@ -12,6 +15,10 @@ const ConfirmationDialog = ({
     resourceId,
     learningResourceType,
     style,
+    projectId,
+    taskId,
+    subtaskId,
+    taskType,
 }) => {
     const { dispatch, applicationState } = useAppContext();
     const { backdrop } = applicationState;
@@ -31,6 +38,34 @@ const ConfirmationDialog = ({
 
     if (!isConfirmationDialogOpen) return null;
 
+    const handleDeletionConfirmation = async () => {
+        if (!taskType) {
+            await deleteResource({
+                dispatch,
+                learningResourceType,
+                resourceId,
+            });
+        }
+        if (taskType === 'project') {
+            await deleteProject({
+                dispatch,
+                projectId,
+                learningResourceType,
+            });
+        }
+        if (taskType === 'task') {
+            await deleteProjectTask({ dispatch, projectId, taskId });
+        }
+        if (taskType === 'subtask') {
+            await deleteProjectTaskSubtask({
+                dispatch,
+                projectId,
+                taskId,
+                subtaskId,
+            });
+        }
+    };
+
     return (
         <div style={style} className={classes.dialog}>
             <h3 className={classes.dialogTitle}>Confirm Delete?</h3>
@@ -42,12 +77,8 @@ const ConfirmationDialog = ({
                         border: '1px solid green',
                     }}
                     text="Yes"
-                    onClick={() => {
-                        deleteResource({
-                            dispatch,
-                            learningResourceType,
-                            resourceId,
-                        });
+                    onClick={async () => {
+                        await handleDeletionConfirmation();
                     }}
                 />
                 <Button

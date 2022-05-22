@@ -124,6 +124,11 @@ const reducer = (state, action) => {
                 ...state,
                 others: action.payload,
             };
+        case actionTypes.SET_CURRENTLY_DISPLAYED_PROJECT:
+            return {
+                ...state,
+                currentlyDisplayedProject: action.payload,
+            };
         default:
             return state;
     }

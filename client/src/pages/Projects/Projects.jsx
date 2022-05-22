@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, Fragment, useState } from 'react';
+import React, { useRef, useEffect, Fragment } from 'react';
 import { Page } from '../../containers';
 import { Title, Subtitle, Input, Search, Button } from '../../components';
 import { useInput, useLearningResources } from '../../customHooks';
@@ -6,29 +6,25 @@ import classes from './styles.module.css';
 import {
     openBackdropWithChild,
     createProject,
+    setCurrentlyDisplayedProject,
 } from '../../context/actions';
 import { useAppContext } from '../../context/AppContext';
 import Task from './Task/Task';
 
 const Projects = ({ learningResourceType }) => {
     const resources = useLearningResources(learningResourceType);
-    const [
-        currentProjectTasksAndSubtasks,
-        setCurrentProjectTasksAndSubtasks,
-    ] = useState([]);
     const createTaskInputRef = useRef(null);
-    const { dispatch, applicationState } = useAppContext();
-    const { backdrop, user } = applicationState;
+    const {
+        dispatch,
+        applicationState: { backdrop, user, currentlyDisplayedProject },
+    } = useAppContext();
+
     const createProjectInput = useInput('');
     const projectsRefs = useRef([]);
     projectsRefs.current = [];
-
-    const handleInputClick = () => {
-        if (createTaskInputRef.current) {
-            openBackdropWithChild(null, dispatch);
-            createTaskInputRef.current.parentElement.style.zIndex = 11;
-        }
-    }; // Think about weather you need to add zIndex via refs (maybe just apply it as a style, since you dont remove it in useEffect)
+    const currentProject = resources?.find(
+        res => res._id === currentlyDisplayedProject?._id
+    );
 
     useEffect(() => {
         if (!backdrop.open && createTaskInputRef.current) {
@@ -36,30 +32,19 @@ const Projects = ({ learningResourceType }) => {
         }
     }, [backdrop.open]);
 
-    const renderProjectTasks = project => {
-        const { tasks } = project;
-        const renderTasks = tasks?.map(task => {
-            const { subtasks } = task;
-            return (
-                <Fragment key={task._id}>
-                    <Task
-                        type="task"
-                        title={task.title}
-                        resourceId={task._id}
-                    />
-                    {subtasks.map(subtask => (
-                        <Task
-                            type="subtask"
-                            title={subtask.title}
-                            key={subtask._id}
-                            resourceId={subtask._id}
-                        />
-                    ))}
-                </Fragment>
-            );
-        });
-        return renderTasks;
-    };
+    useEffect(() => {
+        if (resources.length > 0) {
+            setCurrentlyDisplayedProject(dispatch, resources[0]);
+            addSelectedClassToProject(resources[0]);
+        }
+    }, []);
+
+    const handleInputClick = () => {
+        if (createTaskInputRef.current) {
+            openBackdropWithChild(null, dispatch);
+            createTaskInputRef.current.parentElement.style.zIndex = 11;
+        }
+    }; // Think about weather you need to add zIndex via refs (maybe just apply it as a style, since you dont remove it in useEffect)
 
     const addSelectedClassToProject = project => {
         if (project && projectsRefs.current) {
@@ -86,28 +71,62 @@ const Projects = ({ learningResourceType }) => {
         }
     };
 
-    const renderProjects = resources?.map(project => (
-        <div
-            ref={addToProjectsRefs}
-            style={{ borderRadius: '4px' }}
-            key={project._id}
-            id={project._id}
-        >
-            {' '}
-            <Task
-                title={project.title}
+    const renderProjects = resources?.map(project => {
+        return (
+            <div
+                ref={addToProjectsRefs}
+                style={{ borderRadius: '4px' }}
                 key={project._id}
-                resourceId={project._id}
-                type="project"
-                onClick={() => {
-                    addSelectedClassToProject(project);
-                    setCurrentProjectTasksAndSubtasks(
-                        renderProjectTasks(project)
-                    );
-                }}
-            />
-        </div>
-    ));
+                id={project._id}
+            >
+                {' '}
+                <Task
+                    title={project.title}
+                    key={project._id}
+                    projectId={project._id}
+                    type="project"
+                    onClick={() => {
+                        setCurrentlyDisplayedProject(dispatch, project);
+                        addSelectedClassToProject(project);
+                    }}
+                />
+            </div>
+        );
+    });
+
+    const renderCurrentProjectTasksAndSubtasks = project => {
+        if (project) {
+            const { tasks } = project;
+            const renderTasks = tasks?.map(task => {
+                const { subtasks } = task;
+                return (
+                    <Fragment key={task._id}>
+                        <Task
+                            type="task"
+                            title={task.title}
+                            projectId={project._id}
+                            taskId={task._id}
+                            tags={task.tags}
+                            done={task.done}
+                        />
+                        {subtasks.map(subtask => (
+                            <Task
+                                type="subtask"
+                                title={subtask.title}
+                                key={subtask._id}
+                                projectId={project._id}
+                                taskId={task._id}
+                                subtaskId={subtask._id}
+                                tags={subtask.tags}
+                                done={subtask.done}
+                            />
+                        ))}
+                    </Fragment>
+                );
+            });
+            return renderTasks;
+        }
+    };
 
     return (
         <Page>
@@ -162,8 +181,7 @@ const Projects = ({ learningResourceType }) => {
                 </div>
                 <div className={classes.taskListContainer}>
                     <Subtitle text="Project Tasks" />
-
-                    {currentProjectTasksAndSubtasks}
+                    {renderCurrentProjectTasksAndSubtasks(currentProject)}
                 </div>
             </div>
         </Page>

@@ -5,19 +5,43 @@ import { useInput } from '../../../../customHooks';
 import { tags } from './tags.js';
 import Tag from './Tag/Tag';
 import { useAppContext } from '../../../../context/AppContext';
+import { createTag } from '../../../../context/actions';
 
-const Tags = ({ tagsState }) => {
-    const { applicationState } = useAppContext();
+const Tags = ({ tagsState, projectId, taskId, subtaskId, taskType }) => {
+    const { dispatch, applicationState } = useAppContext();
     const { backdrop } = applicationState;
     const { isTagsOpen, setIsTagsOpen } = tagsState;
     const searchTag = useInput('');
-    const renderTags = tags.map(tag => <Tag type={tag} key={tag} />);
+    const renderTags = tags.map(tag => (
+        <Tag
+            tagType={tag}
+            onClickTagHandler={async () => await handleClick(tag)}
+            key={tag}
+        />
+    ));
 
     useEffect(() => {
         if (!backdrop.open) {
             setIsTagsOpen(false);
         }
     }, [backdrop.open]);
+
+    const handleClick = async tag => {
+        if (taskType === 'task') {
+            await createTag({
+                dispatch,
+                type: taskType,
+                config: { projectId, taskId, tag },
+            });
+        }
+        if (taskType === 'subtask') {
+            await createTag({
+                dispatch,
+                type: taskType,
+                config: { projectId, taskId, subtaskId, tag },
+            });
+        }
+    };
 
     if (!isTagsOpen) return null;
 

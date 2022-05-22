@@ -7,9 +7,11 @@ import { FramerMotionAnimations } from '../components';
 import { ClickAwayListener } from '../components';
 
 const BackdropPortal = () => {
-    const { applicationState } = useAppContext();
-    const { backdrop } = applicationState;
-    const { open, child } = backdrop;
+    const {
+        applicationState: {
+            backdrop: { open, child },
+        },
+    } = useAppContext();
     const { loaded, portalId } = usePortal();
 
     return loaded
