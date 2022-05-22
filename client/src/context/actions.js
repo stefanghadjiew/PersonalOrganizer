@@ -121,6 +121,7 @@ export const deleteResource = async ({
     try {
         await deleteLearningResource({ learningResourceType, resourceId });
         dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+        closeBackdropAndRemoveChild(dispatch);
     } catch (err) {
         openMessageToastWithError(dispatch, err.message);
     }
@@ -149,12 +150,12 @@ export const createProject = async ({
 
 export const deleteProject = async ({
     dispatch,
-    resourceId,
+    projectId,
     learningResourceType,
 }) => {
     try {
         const res = await apiDeleteProject({
-            resourceId,
+            projectId,
             learningResourceType,
         });
         dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
@@ -165,9 +166,9 @@ export const deleteProject = async ({
     }
 };
 
-export const editProject = async ({ dispatch, resourceId, data }) => {
+export const editProject = async ({ dispatch, projectId, data }) => {
     try {
-        const res = await apiEditProject({ resourceId, data });
+        const res = await apiEditProject({ projectId, data });
         dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
         openMessageToastWithSuccess(dispatch, res.message);
         closeBackdropAndRemoveChild(dispatch);
@@ -209,6 +210,7 @@ export const deleteProjectTask = async ({
         const res = await apiDeleteProjectTask({ projectId, taskId });
         openMessageToastWithSuccess(dispatch, res.message);
         dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+        closeBackdropAndRemoveChild(dispatch);
     } catch (err) {
         openMessageToastWithError(dispatch, err.message);
     }
@@ -228,6 +230,7 @@ export const createProjectTaskSubtask = async ({
         });
         openMessageToastWithSuccess(dispatch, res.message);
         dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+        closeBackdropAndRemoveChild(dispatch);
     } catch (err) {
         openMessageToastWithError(dispatch, err.message);
     }
@@ -248,6 +251,7 @@ export const editProjectTaskSubtask = async ({
         });
         openMessageToastWithSuccess(dispatch, res.message);
         dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+        closeBackdropAndRemoveChild(dispatch);
     } catch (err) {
         openMessageToastWithError(dispatch, err.message);
     }
@@ -266,12 +270,22 @@ export const deleteProjectTaskSubtask = async ({
         });
         openMessageToastWithSuccess(dispatch, res.message);
         dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+        closeBackdropAndRemoveChild(dispatch);
     } catch (err) {
         openMessageToastWithError(dispatch, err.message);
     }
 };
 
-export const createTag = async () => {};
+export const createTag = async ({ dispatch, type, config }) => {
+    try {
+        const res = await apiCreateTag({ type, config });
+        openMessageToastWithSuccess(dispatch, res.message);
+        dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+        closeBackdropAndRemoveChild(dispatch);
+    } catch (err) {
+        openMessageToastWithError(dispatch, err.message);
+    }
+};
 
 export const markProjectTaskAsDone = async ({
     dispatch,
@@ -282,6 +296,7 @@ export const markProjectTaskAsDone = async ({
         const res = await apiMarkTaskAsDone({ projectId, taskId });
         openMessageToastWithSuccess(dispatch, res.message);
         dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+        closeBackdropAndRemoveChild(dispatch);
     } catch (err) {
         openMessageToastWithError(dispatch, err.message);
     }
@@ -300,9 +315,17 @@ export const markProjectTaskSubtaskAsDone = async ({
         });
         openMessageToastWithSuccess(dispatch, res.message);
         dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+        closeBackdropAndRemoveChild(dispatch);
     } catch (err) {
         openMessageToastWithError(dispatch, err.message);
     }
+};
+
+export const setCurrentlyDisplayedProject = (dispatch, project) => {
+    dispatch({
+        type: actionTypes.SET_CURRENTLY_DISPLAYED_PROJECT,
+        payload: project,
+    });
 };
 
 const determineActionType = learningResourceType => {

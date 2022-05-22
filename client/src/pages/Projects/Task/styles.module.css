@@ -13,6 +13,10 @@
     transition: border 0.3s ease-in-out;
 }
 
+.done {
+    border-left: 7px solid var(--message-toast-success);
+}
+
 .subtask {
     margin-left: 50px;
 }
@@ -27,8 +31,25 @@
     margin-right: 1rem;
 }
 
-.taskTitle {
+.task-title-container {
     width: 58%;
+    position: relative;
+}
+
+.task-title {
+    height: 3em;
+    line-height: 1.5em;
+    width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.task-title:hover div {
+    opacity: 1;
 }
 
 .taskContainer:hover .taskActions {

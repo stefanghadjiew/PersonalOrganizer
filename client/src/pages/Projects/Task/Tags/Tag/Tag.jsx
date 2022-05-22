@@ -1,10 +1,17 @@
 import React from 'react';
 import classes from './styles.module.css';
 
-const Tag = ({ type }) => {
+const Tag = ({
+    tagType,
+    /*   taskType,
+    projectId,
+    taskId,
+    subtaskId, */
+    onClickTagHandler,
+}) => {
     const determineClassName = () => {
         let tagClassName;
-        switch (type) {
+        switch (tagType) {
             case 'blocker':
                 return (tagClassName = classes.blocker);
             case 'high priority':
@@ -31,9 +38,9 @@ const Tag = ({ type }) => {
     };
 
     return (
-        <div className={classes.tagWrapper}>
+        <div className={classes.tagWrapper} onClick={onClickTagHandler}>
             <div className={`${classes.tag} ${determineClassName()}`}>
-                {type}
+                {tagType}
             </div>
         </div>
     );

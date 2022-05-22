@@ -83,7 +83,7 @@ const buildEditProjectTaskUrl = (projectId, taskId) => {
 };
 
 const buildDeleteProjectTaskUrl = (projectId, taskId) => {
-    const url = `${BASE_URL}/projects/${projectId}/task/${taskId}/delete`;
+    const url = `${BASE_URL}/projects/${projectId}/tasks/${taskId}/delete`;
     return url;
 };
 
@@ -126,7 +126,7 @@ const buildCreateProjectTaskSubtaskTagUrl = (
     taskId,
     subtaskId
 ) => {
-    const url = `${BASE_URL}/projects/${projectId}/tasks/${taskId}/subtask/${subtaskId}/tags/create`;
+    const url = `${BASE_URL}/projects/${projectId}/tasks/${taskId}/subtasks/${subtaskId}/tags/create`;
     return url;
 };
 
@@ -159,10 +159,10 @@ export const apiCreateProject = async ({
 };
 
 export const apiDeleteProject = async ({
-    resourceId,
+    projectId,
     learningResourceType,
 }) => {
-    const url = buildDeleteResourceUrl(resourceId, learningResourceType);
+    const url = buildDeleteResourceUrl(learningResourceType, projectId);
     try {
         const res = await axios.delete(url);
         return res.data;
@@ -171,8 +171,8 @@ export const apiDeleteProject = async ({
     }
 };
 
-export const apiEditProject = async ({ resourceId, data }) => {
-    const url = buildEditProjectUrl(resourceId);
+export const apiEditProject = async ({ projectId, data }) => {
+    const url = buildEditProjectUrl(projectId);
     try {
         const res = await axios.put(url, { projectTitle: data });
         return res.data;
@@ -257,12 +257,17 @@ export const apiDeleteProjectTaskSubtask = async ({
     }
 };
 export const apiCreateTag = async ({ type, config }) => {
+    const { projectId, taskId, tag } = config;
     switch (type) {
         case 'task':
-            const { projectId, taskId, tag } = config;
-            let url = buildCreateProjetTaskTagUrl(projectId, taskId);
+            const createProjectTaskTagUrl = buildCreateProjetTaskTagUrl(
+                projectId,
+                taskId
+            );
             try {
-                const res = await axios.post(url, tag);
+                const res = await axios.post(createProjectTaskTagUrl, {
+                    tag,
+                });
                 return res.data;
             } catch (err) {
                 throw new Error(err.response.data.message);
@@ -270,13 +275,18 @@ export const apiCreateTag = async ({ type, config }) => {
 
         case 'subtask':
             const { subtaskId } = config;
-            url = buildCreateProjectTaskSubtaskTagUrl(
-                projectId,
-                taskId,
-                subtaskId
-            );
+
+            const createProjectTaskSubtaskUrl =
+                buildCreateProjectTaskSubtaskTagUrl(
+                    projectId,
+                    taskId,
+                    subtaskId
+                );
+
             try {
-                const res = await axios.post(url, tag);
+                const res = await axios.post(createProjectTaskSubtaskUrl, {
+                    tag,
+                });
                 return res.data;
             } catch (err) {
                 throw new Error(err.response.data.message);
@@ -288,7 +298,7 @@ export const apiCreateTag = async ({ type, config }) => {
 export const apiMarkTaskAsDone = async ({ projectId, taskId }) => {
     const url = buildMarkTaskAsDoneUrl(projectId, taskId);
     try {
-        const res = await axios.post(url);
+        const res = await axios.put(url);
         return res.data;
     } catch (err) {
         throw new Error(err.response.data.message);
@@ -301,7 +311,7 @@ export const apiMarkTaskSubtaskAsDone = async ({
 }) => {
     const url = buildMarkTaskSubtaskAsDone(projectId, taskId, subtaskId);
     try {
-        const res = await axios.post(url);
+        const res = await axios.put(url);
         return res.data;
     } catch (err) {
         throw new Error(err.response.data.message);

@@ -3,6 +3,9 @@ import { Input, Button } from '../../../../components';
 import {
     editProject,
     createProjectTask,
+    createProjectTaskSubtask,
+    editProjectTask,
+    editProjectTaskSubtask,
 } from '../../../../context/actions';
 import { useAppContext } from '../../../../context/AppContext';
 
@@ -12,41 +15,76 @@ const AddOrEditTaskOrSubtaskInput = ({
     input,
     taskType,
     resourceId,
+    projectId,
+    taskId,
+    subtaskId,
+    actionType,
 }) => {
     const { dispatch } = useAppContext();
+
     const determineLabelByTaskType = () => {
         let label;
         switch (taskType) {
             case 'project':
                 label = 'Add Task';
-                return label;
+                break;
             case 'task':
                 label = 'Add Subtask';
-                return label;
+                break;
             case 'edit':
                 label = 'Edit';
-                return label;
+                break;
             default:
                 label = 'No label';
-                return label;
+                break;
         }
+        return label;
     };
 
     const handleCreateClick = async () => {
-        await createProjectTask({
-            dispatch,
-            resourceId,
-            data: input.value,
-        });
+        if (taskType === 'project') {
+            await createProjectTask({
+                dispatch,
+                projectId,
+                data: input.value,
+            });
+        }
+        if (taskType === 'task') {
+            await createProjectTaskSubtask({
+                dispatch,
+                projectId,
+                taskId,
+                data: input.value,
+            });
+        }
         input.setValue('');
     };
 
     const handleUpdateClick = async () => {
-        await editProject({
-            dispatch,
-            resourceId,
-            data: input.value,
-        });
+        if (taskType === 'project') {
+            await editProject({
+                dispatch,
+                projectId,
+                data: input.value,
+            });
+        }
+        if (taskType === 'task') {
+            await editProjectTask({
+                dispatch,
+                projectId,
+                taskId,
+                data: input.value,
+            });
+        }
+        if (taskType === 'subtask') {
+            await editProjectTaskSubtask({
+                dispatch,
+                projectId,
+                taskId,
+                subtaskId,
+                data: input.value,
+            });
+        }
         input.setValue('');
     };
 
@@ -69,7 +107,7 @@ const AddOrEditTaskOrSubtaskInput = ({
                 onChange={input.onChange}
             />
             <Button
-                text={taskType === 'edit' ? 'Update' : 'Create'}
+                text={actionType === 'edit' ? 'Update' : 'Create'}
                 style={{
                     padding: '0.4rem .75rem',
                     position: 'absolute',
@@ -78,7 +116,7 @@ const AddOrEditTaskOrSubtaskInput = ({
                 }}
                 disabled={input.value === ''}
                 onClick={
-                    taskType === 'edit'
+                    actionType === 'edit'
                         ? handleUpdateClick
                         : handleCreateClick
                 }

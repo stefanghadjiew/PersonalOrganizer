@@ -24,7 +24,7 @@ const createProject = async (req, res, next) => {
     const allProjects = await Projects.find({
       _id: { $in: userLearningResources[0].projects },
     });
-    console.log(allProjects);
+
     if (allProjects.every((project) => project.title !== projectTitle)) {
       const createdProject = await Projects.create({
         title: projectTitle,
@@ -46,8 +46,9 @@ const createProject = async (req, res, next) => {
 const createProjectTask = async (req, res, next) => {
   const { projectId } = req.params;
   const { taskTitle } = req.body;
+
   try {
-    const project = await Projects.find({ projectId });
+    const project = await Projects.find({ _id: projectId });
 
     if (project[0].tasks.every((task) => task.title !== taskTitle)) {
       project[0].tasks.push({ title: taskTitle });
@@ -68,7 +69,7 @@ const createProjectTaskSubtask = async (req, res, next) => {
   const { projectId, taskId } = req.params;
   const { taskSubtaskTitle } = req.body;
   try {
-    const project = await Projects.find({ projectId });
+    const project = await Projects.find({ _id: projectId });
     const task = project[0].tasks.find((t) => t._id == taskId);
     if (task.subtasks.every((st) => st.title !== taskSubtaskTitle)) {
       task.subtasks.push({ title: taskSubtaskTitle });
@@ -76,7 +77,9 @@ const createProjectTaskSubtask = async (req, res, next) => {
       const createdTaskSubtask = task.subtasks.find(
         (subt) => subt.title === taskSubtaskTitle
       );
-      res.status(200).json(createdTaskSubtask);
+      res.status(200).json({
+        message: `Subtask: ${createdTaskSubtask.title} created for Task: ${task.title}`,
+      });
     } else {
       return res.status(422).json({ message: "Subtask already exists" });
     }
@@ -90,7 +93,7 @@ const createProjecTaskTag = async (req, res, next) => {
   const { tag } = req.body;
 
   try {
-    const project = await Projects.find({ projectId });
+    const project = await Projects.find({ _id: projectId });
     const task = project[0].tasks.find((t) => t._id == taskId);
     if (task.tags.includes(tag)) {
       return res.status(422).json({ message: "Tag already exists" });
@@ -109,7 +112,7 @@ const createProjectTaskSubtaskTag = async (req, res, next) => {
   const { projectId, taskId, subtaskId } = req.params;
   const { tag } = req.body;
   try {
-    const project = await Projects.find({ projectId });
+    const project = await Projects.find({ _id: projectId });
     const task = project[0].tasks.find((t) => t._id == taskId);
     const subtask = task.subtasks.find((s) => s._id == subtaskId);
     if (!allowedTags.includes(tag)) {
@@ -158,14 +161,16 @@ const deleteProjectTask = async (req, res, next) => {
   const { projectId, taskId } = req.params;
 
   try {
-    const project = await Projects.find({ projectId });
+    const project = await Projects.find({ _id: projectId });
     const taskToRemove = project[0].tasks.find((t) => t._id == taskId);
     const taskToRemoveIndex = project[0].tasks.findIndex(
       (t) => t._id == taskId
     );
     project[0].tasks.splice(taskToRemoveIndex, 1);
     await project[0].save();
-    res.status(200).json({ message: `Task ${taskToRemove.title} removed!` });
+    res.status(200).json({
+      message: `Task: ${taskToRemove.title} removed from Project: ${project[0].title}!`,
+    });
   } catch (err) {
     return next(err);
   }
@@ -175,7 +180,7 @@ const deleteProjectTaskSubtask = async (req, res, next) => {
   const { projectId, taskId, subtaskId } = req.params;
 
   try {
-    const project = await Projects.find({ projectId });
+    const project = await Projects.find({ _id: projectId });
     const task = project[0].tasks.find((t) => t._id == taskId);
     const subtaskToRemove = task.subtasks.find((s) => s._id == subtaskId);
     const subtaskToRemoveIndex = task.subtasks.findIndex(
@@ -193,8 +198,9 @@ const deleteProjectTaskSubtask = async (req, res, next) => {
 
 const markTaskAsDone = async (req, res, next) => {
   const { projectId, taskId } = req.params;
+
   try {
-    const project = await Projects.find({ projectId });
+    const project = await Projects.find({ _id: projectId });
     const task = project[0].tasks.find((t) => t._id == taskId);
     task.done = true;
     await project[0].save();
@@ -207,7 +213,7 @@ const markTaskAsDone = async (req, res, next) => {
 const markTaskSubtaskAsDone = async (req, res, next) => {
   const { projectId, taskId, subtaskId } = req.params;
   try {
-    const project = await Projects.find({ projectId });
+    const project = await Projects.find({ _id: projectId });
     const task = project[0].tasks.find((t) => t._id == taskId);
     const subtask = task.subtasks.find((s) => s._id == subtaskId);
     subtask.done = true;
@@ -222,7 +228,7 @@ const editProject = async (req, res, next) => {
   const { projectId } = req.params;
   const { projectTitle } = req.body;
   try {
-    const project = await Projects.find({ projectId });
+    const project = await Projects.find({ _id: projectId });
     project[0].title = projectTitle;
     await project[0].save();
     res
@@ -237,7 +243,7 @@ const editProjectTask = async (req, res, next) => {
   const { projectId, taskId } = req.params;
   const { taskTitle } = req.body;
   try {
-    const project = await Projects.find({ projectId });
+    const project = await Projects.find({ _id: projectId });
     const task = project[0].tasks.find((t) => t._id == taskId);
     task.title = taskTitle;
     await project[0].save();
@@ -251,7 +257,7 @@ const editProjectTaskSubtask = async (req, res, next) => {
   const { projectId, taskId, subtaskId } = req.params;
   const { subtaskTitle } = req.body;
   try {
-    const project = await Projects.find({ projectId });
+    const project = await Projects.find({ _id: projectId });
     const task = project[0].tasks.find((t) => t._id == taskId);
     const subtask = task.subtasks.find((s) => s._id == subtaskId);
     subtask.title = subtaskTitle;
@@ -268,7 +274,7 @@ const deleteProjectTaskTag = async (req, res, next) => {
   const { projectId, taskId } = req.params;
   const { tag } = req.body;
   try {
-    const project = await Projects.find({ projectId });
+    const project = await Projects.find({ _id: projectId });
     const task = project[0].tasks.find((t) => t._id == taskId);
     if (!task.tags.includes(tag)) {
       return res
@@ -293,7 +299,7 @@ const deleteProjectTaskSubtaskTag = async (req, res, next) => {
   const { projectId, taskId, subtaskId } = req.params;
   const { tag } = req.body;
   try {
-    const project = await Projects.find({ projectId });
+    const project = await Projects.find({ _id: projectId });
     const task = project[0].tasks.find((t) => t._id == taskId);
     const subtask = task.subtasks.find((s) => s._id == subtaskId);
     if (!allowedTags.includes(tag)) {

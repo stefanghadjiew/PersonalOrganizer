@@ -24,5 +24,6 @@ export const appState = {
     books: [],
     futureProjects: [],
     others: [],
+    currentlyDisplayedProject: null,
     triggerRerender: false, // just change value from true to false to force a re-render and use it in the useLearningResources hook to fetch latest data
 };

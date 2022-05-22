@@ -24,6 +24,6 @@
 }
 
 .selected {
-    border-left: 12px solid var(--dark-blue-color);
+    border-left: 12px solid var(--dark-blue-color) !important;
     transition: border 0.3s ease-in-out;
 }

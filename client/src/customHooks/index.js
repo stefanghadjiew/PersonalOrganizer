@@ -36,9 +36,16 @@ export const useCheckbox = initialValue => {
 };
 
 export const useLearningResources = learningResourceType => {
-    const { dispatch, applicationState } = useAppContext();
-    const { user, triggerRerender } = applicationState;
-    const { id } = user;
+    const {
+        dispatch,
+        applicationState: {
+            user: { id },
+            triggerRerender,
+        },
+        applicationState,
+    } = useAppContext();
+    /*  const { user, triggerRerender } = applicationState;
+    const { id } = user; */
     const resources = applicationState[learningResourceType];
 
     const getData = async () => {

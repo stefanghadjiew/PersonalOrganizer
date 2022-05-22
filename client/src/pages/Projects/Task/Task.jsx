@@ -10,14 +10,30 @@ import {
     IconButton,
     ConfirmationDialog,
     Button,
+    Tooltip,
 } from '../../../components';
-import { openBackdropWithChild } from '../../../context/actions';
+import {
+    markProjectTaskAsDone,
+    markProjectTaskSubtaskAsDone,
+    openBackdropWithChild,
+} from '../../../context/actions';
 import { useAppContext } from '../../../context/AppContext';
 import Tags from './Tags/Tags.jsx';
 import { useInput } from '../../../customHooks';
 import AddOrEditTaskOrSubtaskInput from './AddOrEditTaskOrSubtask/AddOrEditTaskOrSubtask';
+import Tag from './Tags/Tag/Tag';
 
-const Task = ({ title, type = 'task', onClick, resourceId }) => {
+const Task = ({
+    title,
+    type = 'task',
+    onClick,
+    resourceId,
+    projectId,
+    taskId,
+    subtaskId,
+    done,
+    tags,
+}) => {
     const { dispatch, applicationState } = useAppContext();
     const { backdrop } = applicationState;
     //types are project,task,subtask
@@ -28,17 +44,24 @@ const Task = ({ title, type = 'task', onClick, resourceId }) => {
         isAddTaskOrSubtaskInputVisible,
         setIsAddTaskOrSubtaskInputVisible,
     ] = useState(false);
+    const [shouldHaveTooltipOnHover, setShouldHaveTooltipOnHover] =
+        useState(false);
     const [isEditInputVisible, setIsEditInputVisible] = useState(false);
     const addTaskOrSubtaskInput = useInput('');
     const editInput = useInput('');
     const taskRef = useRef(null);
     const addTaskOrSubtaskInputRef = useRef(null);
     const editTaskOrSubtaskInputRef = useRef(null);
+    const taskTitleRef = useRef(null);
     const tagsState = { isTagsOpen, setIsTagsOpen };
     const confirmationDialogState = {
         isConfirmationDialogOpen,
         setIsConfirmationDialogOpen,
     };
+
+    const renderAppliedTags = tags?.map(tag => (
+        <Tag tagType={tag} key={tag} />
+    ));
 
     const openConfirmDialog = () => {
         if (taskRef.current) {
@@ -72,6 +95,24 @@ const Task = ({ title, type = 'task', onClick, resourceId }) => {
         }
     };
 
+    const handleMarkAsDoneClick = async () => {
+        if (type === 'task') {
+            await markProjectTaskAsDone({
+                dispatch,
+                projectId,
+                taskId,
+            });
+        }
+        if (type === 'subtask') {
+            await markProjectTaskSubtaskAsDone({
+                dispatch,
+                projectId,
+                taskId,
+                subtaskId,
+            });
+        }
+    };
+
     useEffect(() => {
         if (!backdrop.open && taskRef.current) {
             taskRef.current.style.zIndex = null;
@@ -94,21 +135,44 @@ const Task = ({ title, type = 'task', onClick, resourceId }) => {
         }
     }, [backdrop.open]);
 
+    useEffect(() => {
+        if (
+            taskTitleRef?.current?.scrollHeight >
+                taskTitleRef?.current?.clientHeight ||
+            taskTitleRef?.current?.scollWidth >
+                taskTitleRef?.current?.clientWidth
+        ) {
+            setShouldHaveTooltipOnHover(true);
+        }
+        taskRef?.current?.classList.remove(classes.selected);
+    }, []);
+
     return (
         <div
             className={
                 type === 'subtask'
-                    ? `${classes.taskContainer} ${classes.subtask}`
+                    ? done
+                        ? `${classes.taskContainer} ${classes.subtask} ${classes.done}`
+                        : `${classes.taskContainer} ${classes.subtask}`
+                    : done
+                    ? `${classes.taskContainer} ${classes.done}`
                     : classes.taskContainer
             }
             ref={taskRef}
             onClick={onClick}
         >
-            <div className={classes.taskTitle}>
-                {title ? title : 'Dummy Task'}
+            <div className={classes['task-title-container']}>
+                <div className={classes['task-title']} ref={taskTitleRef}>
+                    {title ? title : 'Dummy Task'}
+                    <Tooltip
+                        tooltip={title}
+                        show={shouldHaveTooltipOnHover}
+                    />
+                </div>
             </div>
             {(type === 'task' || type === 'subtask') && !backdrop.open && (
                 <div className={classes.tags}>
+                    {renderAppliedTags}
                     <Button
                         text="Tag"
                         style={{
@@ -158,15 +222,18 @@ const Task = ({ title, type = 'task', onClick, resourceId }) => {
                         tooltip="Edit"
                         onClick={handleEditInput}
                     />
-                    <IconButton
-                        icon={
-                            <MdDone
-                                style={{ fontSize: '1.2rem' }}
-                                className={`${classes['mark-as-done-icon']}`}
-                            />
-                        }
-                        tooltip="Mark as done"
-                    />
+                    {!done && type !== 'project' && (
+                        <IconButton
+                            icon={
+                                <MdDone
+                                    style={{ fontSize: '1.2rem' }}
+                                    className={`${classes['mark-as-done-icon']}`}
+                                />
+                            }
+                            tooltip="Mark as done"
+                            onClick={handleMarkAsDoneClick}
+                        />
+                    )}
                 </div>
             )}
 
@@ -174,20 +241,39 @@ const Task = ({ title, type = 'task', onClick, resourceId }) => {
                 style={{ top: '80px' }}
                 confirmationDialogState={confirmationDialogState}
                 learningResourceType="projects"
-                resourceId={resourceId} // Will this work for task/subtask ?
+                projectId={projectId}
+                taskId={taskId}
+                subtaskId={subtaskId}
+                resourceId={resourceId} // Will this work for task/subtask ? // remove later
+                taskType={type}
             />
-            <Tags tagsState={tagsState} />
+            <Tags
+                tagsState={tagsState}
+                projectId={projectId}
+                taskId={taskId}
+                subtaskId={subtaskId}
+                taskType={type}
+            />
             <AddOrEditTaskOrSubtaskInput
                 isVisible={isAddTaskOrSubtaskInputVisible}
                 wrapperRef={addTaskOrSubtaskInputRef}
                 input={addTaskOrSubtaskInput}
                 taskType={type}
+                resourceId={resourceId} // remove later
+                projectId={projectId}
+                taskId={taskId}
+                subtaskId={subtaskId}
             />
             <AddOrEditTaskOrSubtaskInput
                 isVisible={isEditInputVisible}
                 wrapperRef={editTaskOrSubtaskInputRef}
                 input={editInput}
-                taskType="edit"
+                resourceId={resourceId} // remove later
+                projectId={projectId}
+                taskId={taskId}
+                subtaskId={subtaskId}
+                taskType={type}
+                actionType="edit"
             />
         </div>
     );

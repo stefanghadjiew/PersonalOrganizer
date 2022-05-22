@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './styles.module.css';
+import Tooltip from '../Tooltip/Tooltip';
 
 const IconButton = ({
     icon,
@@ -23,6 +24,7 @@ const IconButton = ({
                 {icon}
             </button>
             <p className={classes.tooltip}>{tooltip}</p>
+            {/* <Tooltip tooltip={tooltip} /> */}
         </div>
     );
 };
