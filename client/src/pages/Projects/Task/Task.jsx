@@ -33,6 +33,7 @@ const Task = ({
     subtaskId,
     done,
     tags,
+    style,
 }) => {
     const { dispatch, applicationState } = useAppContext();
     const { backdrop } = applicationState;
@@ -160,6 +161,7 @@ const Task = ({
             }
             ref={taskRef}
             onClick={onClick}
+            style={style}
         >
             <div className={classes['task-title-container']}>
                 <div className={classes['task-title']} ref={taskTitleRef}>
