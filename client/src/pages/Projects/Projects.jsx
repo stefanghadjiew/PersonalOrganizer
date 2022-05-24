@@ -1,6 +1,13 @@
 import React, { useRef, useEffect, Fragment } from 'react';
 import { Page } from '../../containers';
-import { Title, Subtitle, Input, Search, Button } from '../../components';
+import {
+    Title,
+    Subtitle,
+    Input,
+    Search,
+    Button,
+    Accordion,
+} from '../../components';
 import { useInput, useLearningResources } from '../../customHooks';
 import classes from './styles.module.css';
 import {
@@ -108,6 +115,7 @@ const Projects = ({ learningResourceType }) => {
                             taskId={task._id}
                             tags={task.tags}
                             done={task.done}
+                            style={{ backgroundColor: 'white' }}
                         />
                         {subtasks.map(subtask => (
                             <Task
@@ -119,6 +127,7 @@ const Projects = ({ learningResourceType }) => {
                                 subtaskId={subtask._id}
                                 tags={subtask.tags}
                                 done={subtask.done}
+                                style={{ backgroundColor: 'white' }}
                             />
                         ))}
                     </Fragment>
@@ -181,7 +190,11 @@ const Projects = ({ learningResourceType }) => {
                 </div>
                 <div className={classes.taskListContainer}>
                     <Subtitle text="Project Tasks" />
-                    {renderCurrentProjectTasksAndSubtasks(currentProject)}
+                    <Accordion title="Current Tasks">
+                        {renderCurrentProjectTasksAndSubtasks(
+                            currentProject
+                        )}
+                    </Accordion>
                 </div>
             </div>
         </Page>
