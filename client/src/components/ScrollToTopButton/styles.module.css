@@ -1,0 +1,11 @@
+.icon-button-container {
+    position: fixed;
+    bottom: 40px;
+    right: 60px;
+    z-index: 13;
+}
+
+.icon {
+    font-size: 1rem;
+    color: var(--dark-blue-color);
+}

@@ -10,7 +10,11 @@ const Accordion = ({ children, content, title }) => {
         setIsExpanded(!isExpanded);
     };
 
-    const renderItems = children ? children : content;
+    const renderItems = children
+        ? isExpanded
+            ? children
+            : null
+        : content;
 
     return (
         <div className={classes['accordion-wrapper']}>
@@ -28,7 +32,7 @@ const Accordion = ({ children, content, title }) => {
                             : classes['accordion-heading']
                     }
                 >
-                    {title || 'No Title'}
+                    {title ? `${title}: ${children?.length}` : 'No Title'}
                 </div>
                 <div className={classes.actionButton}>
                     <IconButton
@@ -53,7 +57,9 @@ const Accordion = ({ children, content, title }) => {
                         : classes['accordion-content']
                 }
             >
-                {renderItems}
+                {renderItems?.length > 0
+                    ? renderItems
+                    : 'There are no tasks for this project'}
             </div>
         </div>
     );

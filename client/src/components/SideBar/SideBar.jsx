@@ -16,7 +16,7 @@ const SideBar = () => {
         <FramerMotionAnimations
             animationType="left-to-right-1"
             motionKey="sidebar"
-            motionDivStyle={{ zIndex: 4 }}
+            motionDivStyle={{ zIndex: 4, position: 'fixed' }}
         >
             <div
                 className={
