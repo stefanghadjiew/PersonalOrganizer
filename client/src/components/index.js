@@ -21,3 +21,4 @@ export { default as ClickAwayListener } from './ClickAwayListener/ClickAwayListe
 export { default as ConfirmationDialog } from './ConfirmationDialog/ConfirmationDialog.jsx';
 export { default as Tooltip } from './Tooltip/Tooltip.jsx';
 export { default as Accordion } from './Accordion/Accordion.jsx';
+export { default as ScrollToTopButton } from './ScrollToTopButton/ScrollToTopButton.jsx';
