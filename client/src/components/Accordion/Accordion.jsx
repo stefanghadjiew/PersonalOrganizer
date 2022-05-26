@@ -10,6 +10,10 @@ const Accordion = ({ children, content, title }) => {
         setIsExpanded(!isExpanded);
     };
 
+    const doneTasksCount = Object.values(children).filter(
+        child => child.props.children[0].props.done === true
+    ).length;
+
     const renderItems = children
         ? isExpanded
             ? children
@@ -33,6 +37,9 @@ const Accordion = ({ children, content, title }) => {
                     }
                 >
                     {title ? `${title}: ${children?.length}` : 'No Title'}
+                    <div className={classes.details}>
+                        {`Done tasks: ${doneTasksCount}`}
+                    </div>
                 </div>
                 <div className={classes.actionButton}>
                     <IconButton
