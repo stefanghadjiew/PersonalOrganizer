@@ -24,6 +24,12 @@ export const useInput = initialValue => {
         setInputValue('');
     }, [pathname]);
 
+    useEffect(() => {
+        if (!inputValue) {
+            setError(false);
+        }
+    }, [inputValue]); // think how to optimize
+
     return {
         value: inputValue,
         setValue: setInputValue,
