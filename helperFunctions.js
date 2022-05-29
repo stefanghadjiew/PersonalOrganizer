@@ -1,13 +1,28 @@
 const linkPreviewGenerator = require("link-preview-generator");
 const db = require("./db/index.js");
 
-const checkUserPayload = (userInfo) => {
+const checkUserLoginPayload = (userInfo) => {
   return (
     Object.keys(userInfo).length !== 0 &&
     userInfo.hasOwnProperty("email") &&
     userInfo.hasOwnProperty("password") &&
     userInfo.email.length !== 0 &&
     userInfo.password.length > 6
+  );
+};
+
+const checkUserRegisterPayload = (userInfo) => {
+  return (
+    Object.keys(userInfo).length !== 0 &&
+    userInfo.hasOwnProperty("userFirstName") &&
+    userInfo.hasOwnProperty("userLastName") &&
+    userInfo.hasOwnProperty("email") &&
+    userInfo.hasOwnProperty("password") &&
+    userInfo.hasOwnProperty("confirmedPassword") &&
+    userInfo.password === userInfo.repeatedPassword &&
+    userInfo.email.length !== 0 &&
+    userInfo.password.length > 6 &&
+    userInfo.repreatedPassword.length > 6
   );
 };
 
@@ -120,5 +135,6 @@ module.exports = {
   createResource,
   deleteResource,
   getAllResources,
-  checkUserPayload,
+  checkUserLoginPayload,
+  checkUserRegisterPayload,
 };

@@ -24,6 +24,10 @@ const AppRouter = () => {
             component: <Login />,
         },
         {
+            path: 'signup',
+            component: <Login />,
+        },
+        {
             path: '/javascript',
             component: (
                 <DisplayLearningResourceByType

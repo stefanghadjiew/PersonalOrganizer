@@ -9,7 +9,7 @@
     width: 350px;
     height: 40px;
     background-color: var(--dark-text-color);
-    border-radius: 2rem;
+    border-radius: 0.5rem;
     padding: 0 2rem;
     display: flex;
     align-items: center;

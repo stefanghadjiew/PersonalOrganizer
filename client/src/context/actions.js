@@ -1,5 +1,6 @@
 import {
     login,
+    apiRegisterUser,
     getLearningResources,
     createLearningResource,
     deleteLearningResource,
@@ -20,6 +21,20 @@ import {
 } from '../api';
 import { actionTypes } from './actionTypes';
 import { learningResourcesType } from './learningResourcesType';
+
+export const registerUser = async (dispatch, userInfo, navigate) => {
+    try {
+        const res = await apiRegisterUser(userInfo);
+        dispatch({
+            type: actionTypes.SET_USER,
+            payload: { name: res.name, token: res.token, id: res.id },
+        });
+        openMessageToastWithSuccess(dispatch, res.message);
+        navigate('/javascript');
+    } catch (err) {
+        openMessageToastWithError(dispatch, err.message);
+    }
+};
 
 export const loginUser = async (dispatch, userInfo, navigate) => {
     try {

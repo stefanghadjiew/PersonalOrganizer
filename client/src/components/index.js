@@ -22,3 +22,4 @@ export { default as ConfirmationDialog } from './ConfirmationDialog/Confirmation
 export { default as Tooltip } from './Tooltip/Tooltip.jsx';
 export { default as Accordion } from './Accordion/Accordion.jsx';
 export { default as ScrollToTopButton } from './ScrollToTopButton/ScrollToTopButton.jsx';
+export { default as Divider } from './Divider/Divider.jsx';

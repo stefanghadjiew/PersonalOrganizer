@@ -44,7 +44,7 @@
     opacity: 0.85;
     transition: all 0.3s ease-in-out;
     padding: 0 0.5rem;
-    border-radius: 3rem;
+    border-radius: 0.5rem;
     pointer-events: none;
 }
 

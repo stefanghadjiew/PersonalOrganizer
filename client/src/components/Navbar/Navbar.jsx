@@ -11,13 +11,16 @@ import {
     setDarkTheme,
     logoutUser,
 } from '../../context/actions';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { HiMenuAlt4 } from 'react-icons/hi';
 import SideBar from '../SideBar/SideBar';
 import { openBackdropWithChild } from '../../context/actions';
 import { useMediaQueries } from '../../responsive/useMediaQueries';
 
 const Navbar = () => {
+    const location = useLocation();
+    const { pathname } = location;
+    const isRegister = pathname.includes('signup');
     const { applicationState, dispatch } = useAppContext();
     const { user, theme } = applicationState;
     const navigate = useNavigate();
@@ -32,7 +35,12 @@ const Navbar = () => {
                     : `${classes.navbar} ${classes.darkTheme}`
             }
         >
-            {!user && <Button text="Sign Up" />}
+            {!user && !isRegister && (
+                <Button
+                    text="Sign Up"
+                    onClick={() => navigate('/signup')}
+                />
+            )}
             {isMobile && (
                 <IconButton
                     tooltip={'menu'}
