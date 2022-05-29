@@ -22,7 +22,7 @@
     width: 60px;
     justify-content: space-between;
     border: 1px solid var(--dark-blue-color);
-    border-radius: 3rem;
+    border-radius: 0.5rem;
 }
 
 .icon {

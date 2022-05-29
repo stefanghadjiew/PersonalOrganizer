@@ -6,7 +6,7 @@
     background-color: rgba(20, 20, 23, 0.5);
     padding: 0.2rem 0.5rem;
     color: var(--text-color);
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
     z-index: 11;

@@ -16,6 +16,19 @@ const buildDeleteResourceUrl = (learningResourceType, resourceId) => {
     return url;
 };
 
+export const apiRegisterUser = async userInfo => {
+    try {
+        const response = await axios.post(
+            `${BASE_URL}/users/create`,
+            userInfo
+        );
+        const { data } = response;
+        return data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+
 export const login = async userInfo => {
     try {
         const response = await axios.post(`${BASE_URL}/login`, userInfo);

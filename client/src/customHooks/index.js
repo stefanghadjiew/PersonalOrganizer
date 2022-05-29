@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import { validateInput } from '../utils';
 import { useAppContext } from '../context/AppContext';
 import { setLearningResources } from '../context/actions';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { v4 as uuidv4 } from 'uuid';
 
 export const useInput = initialValue => {
+    const location = useLocation();
+    const { pathname } = location;
     const [inputValue, setInputValue] = useState(initialValue);
     const [error, setError] = useState(false);
 
@@ -16,6 +18,11 @@ export const useInput = initialValue => {
             validateInput(e.currentTarget.type, e.currentTarget.value)
         );
     };
+
+    useEffect(() => {
+        setError(false);
+        setInputValue('');
+    }, [pathname]);
 
     return {
         value: inputValue,
