@@ -1,6 +1,7 @@
 import {
     login,
     apiRegisterUser,
+    apiChangePassword,
     getLearningResources,
     createLearningResource,
     deleteLearningResource,
@@ -43,6 +44,16 @@ export const loginUser = async (dispatch, userInfo, navigate) => {
             type: actionTypes.SET_USER,
             payload: { name: res.name, token: res.token, id: res.id },
         });
+        openMessageToastWithSuccess(dispatch, res.message);
+        navigate('/javascript');
+    } catch (err) {
+        openMessageToastWithError(dispatch, err.message);
+    }
+};
+
+export const changePassword = async (dispatch, userInfo, navigate) => {
+    try {
+        const res = await apiChangePassword(userInfo);
         openMessageToastWithSuccess(dispatch, res.message);
         navigate('/javascript');
     } catch (err) {

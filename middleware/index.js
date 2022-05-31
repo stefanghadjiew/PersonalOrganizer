@@ -1,4 +1,4 @@
-const { createUser, loginUser } = require("./users.js");
+const { createUser, loginUser, changePassword } = require("./users.js");
 const {
   createJavascriptResource,
   getAllJavascriptResources,
@@ -61,6 +61,7 @@ const {
 module.exports = {
   createUser,
   loginUser,
+  changePassword,
   createJavascriptResource,
   getAllJavascriptResources,
   deleteJavascriptResource,
