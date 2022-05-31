@@ -19,7 +19,12 @@ const Form = ({ children, title, icon, style, containerStyle }) => {
                 }
                 autoComplete="off"
             >
-                <h2 className={classes['form-header']}>{title}</h2>
+                <Title
+                    type="h2"
+                    text={title}
+                    style={{ paddingBottom: 0 }}
+                />
+
                 {icon}
                 {children}
             </form>
