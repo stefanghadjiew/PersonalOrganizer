@@ -1,5 +1,12 @@
 .divider {
     height: 0.5px;
     width: 100%;
+}
+
+.divider-light-theme {
     background-color: var(--dark-blue-color);
+}
+
+.divider-dark-theme {
+    background-color: var(--text-color);
 }
