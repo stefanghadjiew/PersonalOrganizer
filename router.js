@@ -2,6 +2,7 @@ const express = require("express");
 const {
   createUser,
   loginUser,
+  changePassword,
   createJavascriptResource,
   deleteJavascriptResource,
   getAllJavascriptResources,
@@ -48,6 +49,7 @@ const router = express.Router();
 
 router.post("/users/create", createUser);
 router.post("/login", loginUser);
+router.post("/change-password", changePassword);
 
 router.post("/users/:userId/javascript/create", createJavascriptResource);
 router.get("/users/:userId/javascript/all", getAllJavascriptResources);

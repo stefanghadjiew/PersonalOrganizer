@@ -1,11 +1,25 @@
 import React from 'react';
-import './styles.css';
+import classes from './styles.module.css';
+import { useAppContext } from '../../context/AppContext';
+import Title from '../Title/Title';
 
 const Form = ({ children, title, icon, style, containerStyle }) => {
+    const {
+        applicationState: { theme },
+    } = useAppContext();
+
     return (
-        <div className="form-container" style={containerStyle}>
-            <form style={style} className="form" autoComplete="off">
-                <h2 className="form-header">{title}</h2>
+        <div className={classes['form-container']} style={containerStyle}>
+            <form
+                style={style}
+                className={
+                    theme.dark
+                        ? `${classes.form} ${classes['form-dark-theme']}`
+                        : classes.form
+                }
+                autoComplete="off"
+            >
+                <h2 className={classes['form-header']}>{title}</h2>
                 {icon}
                 {children}
             </form>

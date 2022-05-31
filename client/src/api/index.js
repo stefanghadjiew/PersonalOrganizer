@@ -39,6 +39,19 @@ export const login = async userInfo => {
     }
 };
 
+export const apiChangePassword = async userInfo => {
+    try {
+        const response = await axios.post(
+            `${BASE_URL}/change-password`,
+            userInfo
+        );
+        const { data } = response;
+        return data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+
 export const getLearningResources = async (
     userId,
     learningResourceType

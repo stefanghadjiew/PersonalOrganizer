@@ -9,9 +9,6 @@ const Signup = ({
     userPassword,
     userConfirmedPassword,
 }) => {
-    console.log(userPassword);
-    console.log(userConfirmedPassword);
-
     return (
         <Fragment>
             <div className={classes['user-names-wrapper']}>

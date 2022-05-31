@@ -7,7 +7,7 @@ const checkUserLoginPayload = (userInfo) => {
     userInfo.hasOwnProperty("email") &&
     userInfo.hasOwnProperty("password") &&
     userInfo.email.length !== 0 &&
-    userInfo.password.length > 6
+    userInfo.password.length > 5
   );
 };
 
@@ -19,10 +19,22 @@ const checkUserRegisterPayload = (userInfo) => {
     userInfo.hasOwnProperty("email") &&
     userInfo.hasOwnProperty("password") &&
     userInfo.hasOwnProperty("confirmedPassword") &&
-    userInfo.password === userInfo.repeatedPassword &&
+    userInfo.password === userInfo.confirmedPassword &&
     userInfo.email.length !== 0 &&
-    userInfo.password.length > 6 &&
-    userInfo.repreatedPassword.length > 6
+    userInfo.password.length > 5 &&
+    userInfo.confirmedPassword.length > 5
+  );
+};
+
+const checkUserChangePasswordPayload = (userInfo) => {
+  return (
+    Object.keys(userInfo).length !== 0 &&
+    userInfo.hasOwnProperty("email") &&
+    userInfo.hasOwnProperty("userNewPassword") &&
+    userInfo.hasOwnProperty("userConfirmedPassword") &&
+    userInfo.userNewPassword.length > 5 &&
+    userInfo.userConfirmedPassword.length > 5 &&
+    userInfo.userNewPassword === userInfo.userConfirmedPassword
   );
 };
 
@@ -137,4 +149,5 @@ module.exports = {
   getAllResources,
   checkUserLoginPayload,
   checkUserRegisterPayload,
+  checkUserChangePasswordPayload,
 };

@@ -24,7 +24,11 @@ const AppRouter = () => {
             component: <Login />,
         },
         {
-            path: 'signup',
+            path: '/signup',
+            component: <Login />,
+        },
+        {
+            path: '/new-password',
             component: <Login />,
         },
         {
