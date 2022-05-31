@@ -1,16 +1,24 @@
 .button {
-    background-color: var(--dark-blue-color);
     border: none;
     padding: 0.8rem 1.3rem;
     border-radius: 0.5rem;
     text-transform: capitalize;
     font: inherit;
     cursor: pointer;
-    color: var(--text-color);
     position: relative;
     box-shadow: 2px 3px 3px var(--portal-element-background);
     transition: all 0.3s ease-in-out;
     opacity: 0.9;
+}
+
+.button-light-theme {
+    background-color: var(--dark-blue-color);
+    color: var(--text-color);
+}
+
+.button-dark-theme {
+    background-color: var(--text-color);
+    color: var(--dark-blue-color);
 }
 
 .button:hover {
