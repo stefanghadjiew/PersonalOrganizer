@@ -107,11 +107,17 @@ const Login = () => {
                 icon={
                     isRegister ? null : isChangePassword ? (
                         <RiLockPasswordFill
-                            style={{ marginLeft: '-10px' }}
+                            style={{
+                                marginLeft: '-10px',
+                                fontSize: '5rem',
+                            }}
                         />
                     ) : (
                         <BsFillFilePersonFill
-                            style={{ marginLeft: '-10px' }}
+                            style={{
+                                marginLeft: '-10px',
+                                fontSize: '5rem',
+                            }}
                         />
                     )
                 }
