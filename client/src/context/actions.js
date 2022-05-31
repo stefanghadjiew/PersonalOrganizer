@@ -54,6 +54,10 @@ export const loginUser = async (dispatch, userInfo, navigate) => {
 export const changePassword = async (dispatch, userInfo, navigate) => {
     try {
         const res = await apiChangePassword(userInfo);
+        /* dispatch({
+            type: actionTypes.SET_USER,
+            payload: { name: res.name, token: res.token, id: res.id },
+        }); */
         openMessageToastWithSuccess(dispatch, res.message);
         navigate('/javascript');
     } catch (err) {
