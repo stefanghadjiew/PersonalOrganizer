@@ -1,14 +1,17 @@
 .page-wrapper {
-    width: calc(100% - 70px);
-    padding: 0 2.5rem 0 calc(2.5rem + 70px);
+    padding: 0 2rem 0 2.5rem;
+    left: 70px;
     display: flex;
-    flex-direction: column;
     position: relative;
-    width: 100%;
+    width: calc(100% - 70px);
     margin-top: 5rem;
     color: var(--dark-blue-color);
-
+    min-height: calc(100vh - 5rem);
     /* background-color: ???; */
+}
+
+.vertical {
+    flex-direction: column;
 }
 
 .darkTheme {

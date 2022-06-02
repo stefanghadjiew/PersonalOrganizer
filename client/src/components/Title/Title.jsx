@@ -1,11 +1,14 @@
 import React from 'react';
 import classes from './styles.module.css';
 
-const Title = ({ type = 'h1', text, style }) => {
+const Title = ({ type = 'h1', text, style, textStyle }) => {
     return (
         <div style={style} className={classes.titleWrapper}>
             {type === 'h1' ? (
-                <h1 className={`${classes.title} ${classes.h1}`}>
+                <h1
+                    style={textStyle}
+                    className={`${classes.title} ${classes.h1}`}
+                >
                     {text}
                 </h1>
             ) : (

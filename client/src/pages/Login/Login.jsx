@@ -96,7 +96,6 @@ const Login = () => {
                 text="Personal Organizer"
             />
             <Form
-                containerStyle={{ paddingRight: '70px' }}
                 title={
                     !isRegister
                         ? isChangePassword
