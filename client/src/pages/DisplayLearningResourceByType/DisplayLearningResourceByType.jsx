@@ -10,6 +10,7 @@ import {
     CreateResourceDialog,
     Pagination,
     Select,
+    IllustratedMessage,
 } from '../../components';
 import { GridLayout } from '../../layouts';
 import {
@@ -106,13 +107,17 @@ const DisplayLearningResourceByType = ({ learningResourceType }) => {
                 handleSearch={handleSearch}
                 clearSearch={clearSearchResults}
             />
-            <GridLayout>
-                <AnimatePresence exitBeforeEnter>
-                    {searchResults
-                        ? renderSearchResults
-                        : renderLearningResources}
-                </AnimatePresence>
-            </GridLayout>
+            {searchResults !== null && searchResults.length === 0 ? (
+                <IllustratedMessage />
+            ) : (
+                <GridLayout>
+                    <AnimatePresence exitBeforeEnter>
+                        {searchResults
+                            ? renderSearchResults
+                            : renderLearningResources}
+                    </AnimatePresence>
+                </GridLayout>
+            )}
 
             <Pagination
                 goToNextPage={goToNextPage}

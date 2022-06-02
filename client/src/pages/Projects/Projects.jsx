@@ -7,6 +7,7 @@ import {
     Search,
     Button,
     Accordion,
+    /* IllustratedMessage, */
 } from '../../components';
 import { useInput, useLearningResources } from '../../customHooks';
 import classes from './styles.module.css';
@@ -139,6 +140,7 @@ const Projects = ({ learningResourceType }) => {
 
     return (
         <Page>
+            {/* <IllustratedMessage /> */}
             <Title text="Projects" />
             <div className={classes.inputs}>
                 <Search
