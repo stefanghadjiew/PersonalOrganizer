@@ -79,7 +79,7 @@ export const useLearningResources = learningResourceType => {
 };
 
 export const useSearchResults = initialData => {
-    const [searchResults, setSearchResults] = useState();
+    const [searchResults, setSearchResults] = useState(null);
 
     const handleSearch = val => {
         if (!val) return;
