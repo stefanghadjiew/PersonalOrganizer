@@ -3,8 +3,9 @@ import classes from './styles.module.css';
 import { useAppContext } from '../../context/AppContext';
 
 const PageLayout = ({ children }) => {
-    const { applicationState } = useAppContext();
-    const { theme } = applicationState;
+    const {
+        applicationState: { theme },
+    } = useAppContext();
 
     return (
         <div

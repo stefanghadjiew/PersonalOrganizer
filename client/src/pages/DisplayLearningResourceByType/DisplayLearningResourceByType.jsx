@@ -22,10 +22,11 @@ import {
 import { useAppContext } from '../../context/AppContext';
 import { AnimatePresence } from 'framer-motion';
 import { openBackdropWithChild } from '../../context/actions';
+import { useNavigate } from 'react-router-dom';
 
 const DisplayLearningResourceByType = ({ learningResourceType }) => {
     const { dispatch } = useAppContext();
-
+    const navigate = useNavigate();
     const resources = useLearningResources(learningResourceType);
 
     const {
@@ -73,6 +74,12 @@ const DisplayLearningResourceByType = ({ learningResourceType }) => {
 
     return (
         <Page>
+            <Button
+                text="Error"
+                onClick={() => {
+                    navigate('/dasdwads');
+                }}
+            />
             <Title text={learningResourceType} />
             <Subtitle
                 text={`Number of resources: ${

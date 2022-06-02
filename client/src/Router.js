@@ -1,5 +1,10 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { DisplayLearningResourceByType, Login, Projects } from './pages';
+import {
+    DisplayLearningResourceByType,
+    Login,
+    Projects,
+    ErrorPage,
+} from './pages';
 import { useAppContext } from './context/AppContext';
 import { getLearningResourceType } from './utils';
 import { useEffect } from 'react';
@@ -12,11 +17,11 @@ const AppRouter = () => {
         return user ? component : <Login />;
     };
 
-    useEffect(() => {
+    /*  useEffect(() => {
         if (!user) {
             navigate('/login');
         }
-    }, []);
+    }, []); */
 
     const resourcesRoutes = [
         {
@@ -119,6 +124,7 @@ const AppRouter = () => {
                     />
                 }
             />
+            <Route path="*" element={<ErrorPage />} />
             {renderResourcesRoutes}
         </Routes>
     );
