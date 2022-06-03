@@ -1,5 +1,9 @@
 import AppRouter from './Router.js';
-import { MessageToast, ScrollToTopButton } from './components/index.js';
+import {
+    MessageToast,
+    ScrollToTopButton,
+    BackButton,
+} from './components/index.js';
 import { AppContextProvider } from './context/AppContext';
 import { AppLayout, PageLayout } from './layouts';
 import { SideBar, Navbar } from './components';
@@ -14,6 +18,7 @@ function App() {
         <AppLayout>
             <AppContextProvider>
                 <Router>
+                    <BackButton />
                     <ScrollToTopButton />
                     {!isMobile && <SideBar />}
                     <PageLayout>

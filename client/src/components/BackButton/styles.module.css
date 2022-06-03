@@ -1,0 +1,11 @@
+.back-button-container {
+    top: 1rem;
+    left: 80px;
+    position: fixed;
+    z-index: 13;
+}
+
+.icon {
+    font-size: 1rem;
+    color: var(--dark-blue-color);
+}

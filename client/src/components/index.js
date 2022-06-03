@@ -24,3 +24,4 @@ export { default as Accordion } from './Accordion/Accordion.jsx';
 export { default as ScrollToTopButton } from './ScrollToTopButton/ScrollToTopButton.jsx';
 export { default as Divider } from './Divider/Divider.jsx';
 export { default as IllustratedMessage } from './IllustratedMessage/IllustratedMessage.jsx';
+export { default as BackButton } from './BackButton/BackButton.jsx';
