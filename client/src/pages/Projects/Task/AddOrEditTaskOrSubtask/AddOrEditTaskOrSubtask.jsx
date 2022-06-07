@@ -23,22 +23,15 @@ const AddOrEditTaskOrSubtaskInput = ({
     const { dispatch } = useAppContext();
 
     const determineLabelByTaskType = () => {
-        let label;
-        switch (taskType) {
-            case 'project':
-                label = 'Add Task';
-                break;
-            case 'task':
-                label = 'Add Subtask';
-                break;
-            case 'edit':
-                label = 'Edit';
-                break;
-            default:
-                label = 'No label';
-                break;
+        if (taskType === 'project') {
+            return actionType ? 'Edit Project' : 'Add Task';
         }
-        return label;
+        if (taskType === 'task') {
+            return actionType ? 'Edit Task' : 'Add Subtask';
+        }
+        if (taskType === 'subtask') {
+            return 'Edit Subtask';
+        }
     };
 
     const handleCreateClick = async () => {
