@@ -38,10 +38,11 @@ const Tag = ({
     };
 
     return (
-        <div className={classes.tagWrapper} onClick={onClickTagHandler}>
-            <div className={`${classes.tag} ${determineClassName()}`}>
-                {tagType}
-            </div>
+        <div
+            className={`${classes.tag} ${determineClassName()}`}
+            onClick={onClickTagHandler}
+        >
+            {tagType}
         </div>
     );
 };

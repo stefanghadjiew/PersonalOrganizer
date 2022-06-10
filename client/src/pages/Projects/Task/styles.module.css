@@ -9,7 +9,6 @@
     cursor: pointer;
     border-left: 7px solid var(--dark-blue-color);
     background-color: #f5f5f5;
-    justify-content: space-between;
     transition: border 0.3s ease-in-out;
 }
 
@@ -28,18 +27,24 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s ease-in-out;
-    margin-right: 1rem;
+    position: absolute;
+    right: 0.2rem;
+}
+
+.taskActionsSection {
+    display: flex;
+    flex-direction: column;
 }
 
 .task-title-container {
-    width: 58%;
+    width: 50%;
     position: relative;
 }
 
 .task-title {
     height: 3em;
     line-height: 1.5em;
-    width: 400px;
+
     overflow: hidden;
     text-overflow: ellipsis;
     /* white-space: nowrap; */
@@ -74,7 +79,7 @@
 }
 
 .tags {
-    opacity: 0;
+    /* opacity: 0; */
     transition: opacity 0.2s ease-in-out;
     width: calc(42% - 80px);
     max-height: 58px;

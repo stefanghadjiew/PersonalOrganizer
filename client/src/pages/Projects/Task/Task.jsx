@@ -48,6 +48,7 @@ const Task = ({
     const [shouldHaveTooltipOnHover, setShouldHaveTooltipOnHover] =
         useState(false);
     const [isEditInputVisible, setIsEditInputVisible] = useState(false);
+    const [openActions, setOpenActions] = useState(false);
     const addTaskOrSubtaskInput = useInput('');
     const editInput = useInput('');
     const taskRef = useRef(null);
@@ -187,55 +188,58 @@ const Task = ({
             )}
             {!backdrop.open && (
                 <div className={classes.taskActions}>
-                    {(type === 'project' || type === 'task') && (
+                    <div className={classes.taskActionsSection}>
+                        {(type === 'project' || type === 'task') && (
+                            <IconButton
+                                icon={
+                                    <IoIosAdd
+                                        style={{ fontSize: '1.2rem' }}
+                                        className={`${classes['edit-icon']}`}
+                                    />
+                                }
+                                tooltip={
+                                    type === 'project'
+                                        ? 'Add Task'
+                                        : 'Add Subtask'
+                                }
+                                onClick={handleAddTaskOrSubtask}
+                            />
+                        )}
                         <IconButton
                             icon={
-                                <IoIosAdd
+                                <MdOutlineDeleteOutline
+                                    style={{ fontSize: '1.2rem' }}
+                                    className={`${classes['delete-icon']}`}
+                                />
+                            }
+                            tooltip="Delete"
+                            onClick={openConfirmDialog}
+                        />
+                    </div>
+                    <div className={classes.taskActionsSection}>
+                        <IconButton
+                            icon={
+                                <MdModeEditOutline
                                     style={{ fontSize: '1.2rem' }}
                                     className={`${classes['edit-icon']}`}
                                 />
                             }
-                            tooltip={
-                                type === 'project'
-                                    ? 'Add Task'
-                                    : 'Add Subtask'
-                            }
-                            onClick={handleAddTaskOrSubtask}
+                            tooltip="Edit"
+                            onClick={handleEditInput}
                         />
-                    )}
-
-                    <IconButton
-                        icon={
-                            <MdOutlineDeleteOutline
-                                style={{ fontSize: '1.2rem' }}
-                                className={`${classes['delete-icon']}`}
+                        {!done && type !== 'project' && (
+                            <IconButton
+                                icon={
+                                    <MdDone
+                                        style={{ fontSize: '1.2rem' }}
+                                        className={`${classes['mark-as-done-icon']}`}
+                                    />
+                                }
+                                tooltip="Mark as done"
+                                onClick={handleMarkAsDoneClick}
                             />
-                        }
-                        tooltip="Delete"
-                        onClick={openConfirmDialog}
-                    />
-                    <IconButton
-                        icon={
-                            <MdModeEditOutline
-                                style={{ fontSize: '1.2rem' }}
-                                className={`${classes['edit-icon']}`}
-                            />
-                        }
-                        tooltip="Edit"
-                        onClick={handleEditInput}
-                    />
-                    {!done && type !== 'project' && (
-                        <IconButton
-                            icon={
-                                <MdDone
-                                    style={{ fontSize: '1.2rem' }}
-                                    className={`${classes['mark-as-done-icon']}`}
-                                />
-                            }
-                            tooltip="Mark as done"
-                            onClick={handleMarkAsDoneClick}
-                        />
-                    )}
+                        )}
+                    </div>
                 </div>
             )}
 
