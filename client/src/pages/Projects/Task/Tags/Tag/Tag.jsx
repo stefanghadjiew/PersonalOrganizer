@@ -7,7 +7,7 @@ const Tag = ({
     projectId,
     taskId,
     subtaskId, */
-    onClickTagHandler,
+    onClick,
 }) => {
     const determineClassName = () => {
         let tagClassName;
@@ -40,7 +40,7 @@ const Tag = ({
     return (
         <div
             className={`${classes.tag} ${determineClassName()}`}
-            onClick={onClickTagHandler}
+            onClick={onClick}
         >
             {tagType}
         </div>

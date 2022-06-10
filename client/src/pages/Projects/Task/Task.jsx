@@ -48,7 +48,6 @@ const Task = ({
     const [shouldHaveTooltipOnHover, setShouldHaveTooltipOnHover] =
         useState(false);
     const [isEditInputVisible, setIsEditInputVisible] = useState(false);
-    const [openActions, setOpenActions] = useState(false);
     const addTaskOrSubtaskInput = useInput('');
     const editInput = useInput('');
     const taskRef = useRef(null);
@@ -60,10 +59,6 @@ const Task = ({
         isConfirmationDialogOpen,
         setIsConfirmationDialogOpen,
     };
-
-    const renderAppliedTags = tags?.map(tag => (
-        <Tag tagType={tag} key={tag} />
-    ));
 
     const openConfirmDialog = () => {
         if (taskRef.current) {
@@ -148,6 +143,10 @@ const Task = ({
         }
         taskRef?.current?.classList.remove(classes.selected);
     }, []);
+
+    const renderAppliedTags = tags?.map(tag => (
+        <Tag tagType={tag} key={tag} onClick={openTags} />
+    ));
 
     return (
         <div
