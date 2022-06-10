@@ -7,13 +7,14 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-size: 1rem;
+    font-size: 12px;
     font-weight: 700;
     color: var(--text-color);
     line-height: 1;
     letter-spacing: 0.2px;
     border-radius: 4px;
     cursor: pointer;
+    margin: 2px 3px -1px 0;
 }
 
 .high-priority {
