@@ -145,7 +145,7 @@ const Task = ({
     }, []);
 
     const renderAppliedTags = tags?.map(tag => (
-        <Tag tagType={tag} key={tag} onClick={openTags} />
+        <Tag tagType={tag} key={tag} openTags={openTags} />
     ));
 
     return (
@@ -258,6 +258,7 @@ const Task = ({
                 taskId={taskId}
                 subtaskId={subtaskId}
                 taskType={type}
+                appliedTags={tags}
             />
             <AddOrEditTaskOrSubtaskInput
                 isVisible={isAddTaskOrSubtaskInputVisible}
