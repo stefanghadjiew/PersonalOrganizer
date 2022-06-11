@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './styles.module.css';
+import { useAppContext } from '../../../../../context/AppContext';
 
 const Tag = ({
     tagType,
@@ -7,8 +8,13 @@ const Tag = ({
     projectId,
     taskId,
     subtaskId, */
-    onClick,
+    openTags,
+    onClickTagHandler,
 }) => {
+    const {
+        applicationState: { backdrop },
+    } = useAppContext();
+
     const determineClassName = () => {
         let tagClassName;
         switch (tagType) {
@@ -40,7 +46,7 @@ const Tag = ({
     return (
         <div
             className={`${classes.tag} ${determineClassName()}`}
-            onClick={onClick}
+            onClick={!backdrop.open ? openTags : onClickTagHandler}
         >
             {tagType}
         </div>

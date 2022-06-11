@@ -1,15 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import classes from './styles.module.css';
-import { Input } from '../../../../components';
+import { Input, Divider, Subtitle } from '../../../../components';
 import { useInput } from '../../../../customHooks';
 import { tags } from './tags.js';
 import Tag from './Tag/Tag';
 import { useAppContext } from '../../../../context/AppContext';
 import { createTag } from '../../../../context/actions';
 
-const Tags = ({ tagsState, projectId, taskId, subtaskId, taskType }) => {
-    const { dispatch, applicationState } = useAppContext();
-    const { backdrop } = applicationState;
+const Tags = ({
+    tagsState,
+    projectId,
+    taskId,
+    subtaskId,
+    taskType,
+    appliedTags,
+}) => {
+    const {
+        dispatch,
+        applicationState: { backdrop },
+    } = useAppContext();
     const { isTagsOpen, setIsTagsOpen } = tagsState;
     const searchTag = useInput('');
     const renderTags = tags.map(tag => (
@@ -17,6 +26,14 @@ const Tags = ({ tagsState, projectId, taskId, subtaskId, taskType }) => {
             tagType={tag}
             onClickTagHandler={async () => await handleClick(tag)}
             key={tag}
+        />
+    ));
+
+    const renderAppliedTags = appliedTags?.map(appliedTag => (
+        <Tag
+            tagType={appliedTag}
+            key={appliedTag}
+            onRemoveTag={async () => await handleRemoveTag(appliedTag)}
         />
     ));
 
@@ -43,6 +60,8 @@ const Tags = ({ tagsState, projectId, taskId, subtaskId, taskType }) => {
         }
     };
 
+    const handleRemoveTag = async tag => {};
+
     if (!isTagsOpen) return null;
 
     return (
@@ -58,6 +77,21 @@ const Tags = ({ tagsState, projectId, taskId, subtaskId, taskType }) => {
             </div>
 
             <div className={classes.tags}>{renderTags}</div>
+            {appliedTags.length !== 0 && (
+                <Fragment>
+                    <Divider style={{ margin: '1rem 0' }} />
+                    <Subtitle
+                        wrapperStyle={{
+                            margin: '0 13px',
+                            paddingBottom: '15px',
+                        }}
+                        text="Selected Tags:"
+                    />
+                    <div style={{ margin: '0 13px' }}>
+                        {renderAppliedTags}
+                    </div>
+                </Fragment>
+            )}
         </div>
     );
 };
