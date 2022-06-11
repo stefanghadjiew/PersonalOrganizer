@@ -285,6 +285,10 @@ const deleteProjectTaskTag = async (req, res, next) => {
       return res.status(403).json({ message: "Tag not allowed" });
     }
     const tagIndex = task.tags.findIndex((t) => t === tag);
+    if (!tagIndex && tagIndex !== 0)
+      return res.status(404).json({
+        message: `Tag ${tag} doesen't exist for task ${task.title}`,
+      });
     task.tags.splice(tagIndex, 1);
     await project[0].save();
     res
@@ -311,6 +315,10 @@ const deleteProjectTaskSubtaskTag = async (req, res, next) => {
       });
     }
     const tagIndex = subtask.tags.findIndex((t) => t === tag);
+    if (!tagIndex)
+      return res.status(404).json({
+        message: `Tag ${tag} doesen't exist for subtask ${subtask.title}`,
+      });
     subtask.tags.splice(tagIndex, 1);
     await project[0].save();
     res

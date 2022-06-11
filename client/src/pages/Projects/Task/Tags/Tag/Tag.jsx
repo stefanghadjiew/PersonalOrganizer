@@ -1,17 +1,25 @@
 import React from 'react';
 import classes from './styles.module.css';
 import { useAppContext } from '../../../../../context/AppContext';
+import {
+    deleteProjectTaskTag,
+    deleteProjectTaskSubtaskTag,
+} from '../../../../../context/actions';
+import { IoIosClose } from 'react-icons/io';
+import { IconButton } from '../../../../../components';
 
 const Tag = ({
     tagType,
-    /*   taskType,
+    taskType,
     projectId,
     taskId,
-    subtaskId, */
+    subtaskId,
     openTags,
     onClickTagHandler,
+    isApplied = false,
 }) => {
     const {
+        dispatch,
         applicationState: { backdrop },
     } = useAppContext();
 
@@ -43,13 +51,39 @@ const Tag = ({
         }
     };
 
+    const onRemoveTag = async () => {
+        if (taskType === 'task') {
+            await deleteProjectTaskTag({
+                dispatch,
+                config: { projectId, taskId, tag: tagType },
+            });
+        }
+        if (taskType === 'subtask') {
+            await deleteProjectTaskSubtaskTag({
+                dispatch,
+                config: { projectId, taskId, subtaskId, tag: tagType },
+            });
+        }
+    };
+
     return (
         <div
             className={`${classes.tag} ${determineClassName()}`}
             onClick={!backdrop.open ? openTags : onClickTagHandler}
         >
             {tagType}
-        </div>
+            {isApplied && (
+                <IconButton
+                    onClick={onRemoveTag}
+                    wrapperStyle={{
+                        position: 'absolute',
+                        top: '-5px',
+                        right: '-5px',
+                    }}
+                    icon={<IoIosClose style={{ fontSize: '1rem' }} />}
+                />
+            )}
+        </div> // icon button in the div with onClick = {onRemoveTagHandler}
     );
 };
 

@@ -33,7 +33,11 @@ const Tags = ({
         <Tag
             tagType={appliedTag}
             key={appliedTag}
-            onRemoveTag={async () => await handleRemoveTag(appliedTag)}
+            taskType={taskType}
+            projectId={projectId}
+            taskId={taskId}
+            subtaskId={subtaskId}
+            isApplied={true}
         />
     ));
 
@@ -59,8 +63,6 @@ const Tags = ({
             });
         }
     };
-
-    const handleRemoveTag = async tag => {};
 
     if (!isTagsOpen) return null;
 

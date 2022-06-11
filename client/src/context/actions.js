@@ -317,6 +317,30 @@ export const createTag = async ({ dispatch, type, config }) => {
     }
 };
 
+export const deleteProjectTaskTag = async ({ dispatch, config }) => {
+    try {
+        const res = await apiDeleteProjectTaskTag({ config });
+        openMessageToastWithSuccess(dispatch, res.message);
+        dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+        closeBackdropAndRemoveChild(dispatch); // maybe remove ??
+    } catch (err) {
+        openMessageToastWithError(dispatch, err.message);
+    }
+};
+export const deleteProjectTaskSubtaskTag = async ({
+    dispatch,
+    config,
+}) => {
+    try {
+        const res = await apiDeleteProjectTaskSubtaskTag({ config });
+        openMessageToastWithSuccess(dispatch, res.message);
+        dispatch({ type: actionTypes.SET_TRIGGER_RERENDER });
+        closeBackdropAndRemoveChild(dispatch); // maybe remove ??
+    } catch (err) {
+        openMessageToastWithError(dispatch, err.message);
+    }
+};
+
 export const markProjectTaskAsDone = async ({
     dispatch,
     projectId,
